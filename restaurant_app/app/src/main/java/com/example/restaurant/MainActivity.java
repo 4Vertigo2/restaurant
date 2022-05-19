@@ -3,6 +3,7 @@ package com.example.restaurant;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
@@ -29,8 +30,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         //switches activity when app launches to Activity
         //used to test an Activity if you cannot run the Activity independantly
         //startActivity(new Intent(this, LoginActivity.class));
+
     }
 }
