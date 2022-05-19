@@ -12,6 +12,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Restaurant_app"
-        tools:targetApi="31" />
+        tools:targetApi="31">
 
+        <!--Launches MainActivity first -->
+        <activity android:name="com.example.restaurant.MainActivity" android:exported="true">
+
+            <!--Inside this activity you should be having below code for
+                intent filter which will check the default activity-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.example.restaurant.LoginActivity"
+            android:exported="true" />
+    </application>
+<uses-permission android:name="android.permission.INTERNET" />
 </manifest>

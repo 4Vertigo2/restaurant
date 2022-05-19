@@ -1,0 +1,93 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.restaurant_app"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="32" />
+9-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:33:1-63
+11-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:33:18-60
+12
+13    <application
+13-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:6:5-32:19
+14        android:allowBackup="true"
+14-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:7:9-35
+15        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+15-->[androidx.core:core:1.7.0] /home/sahil/.gradle/caches/transforms-3/d8338c189490aee58604e111af57865f/transformed/core-1.7.0/AndroidManifest.xml:24:18-86
+16        android:dataExtractionRules="@xml/data_extraction_rules"
+16-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:8:9-65
+17        android:debuggable="true"
+18        android:fullBackupContent="@xml/backup_rules"
+18-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:9:9-54
+19        android:icon="@mipmap/ic_launcher"
+19-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:10:9-43
+20        android:label="@string/app_name"
+20-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:11:9-41
+21        android:roundIcon="@mipmap/ic_launcher_round"
+21-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:12:9-54
+22        android:supportsRtl="true"
+22-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:13:9-35
+23        android:testOnly="true"
+24        android:theme="@style/Theme.Restaurant_app" >
+24-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:14:9-52
+25
+26        <!-- Launches MainActivity first -->
+27        <activity
+27-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:18:9-27:20
+28            android:name="com.example.restaurant.MainActivity"
+28-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:18:19-69
+29            android:exported="true" >
+29-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:18:70-93
+30
+31            <!--
+32                Inside this activity you should be having below code for
+33                intent filter which will check the default activity
+34            -->
+35            <intent-filter>
+35-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:22:13-26:29
+36                <action android:name="android.intent.action.MAIN" />
+36-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:23:17-69
+36-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:23:25-66
+37
+38                <category android:name="android.intent.category.LAUNCHER" />
+38-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:25:17-77
+38-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:25:27-74
+39            </intent-filter>
+40        </activity>
+41        <activity
+41-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:29:9-31:39
+42            android:name="com.example.restaurant.LoginActivity"
+42-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:30:13-64
+43            android:exported="true" />
+43-->/home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:31:13-36
+44
+45        <provider
+45-->[androidx.emoji2:emoji2:1.0.0] /home/sahil/.gradle/caches/transforms-3/db233f3ba8947fb0f91cd701b83dfe6a/transformed/emoji2-1.0.0/AndroidManifest.xml:26:9-34:20
+46            android:name="androidx.startup.InitializationProvider"
+46-->[androidx.emoji2:emoji2:1.0.0] /home/sahil/.gradle/caches/transforms-3/db233f3ba8947fb0f91cd701b83dfe6a/transformed/emoji2-1.0.0/AndroidManifest.xml:27:13-67
+47            android:authorities="com.example.restaurant_app.androidx-startup"
+47-->[androidx.emoji2:emoji2:1.0.0] /home/sahil/.gradle/caches/transforms-3/db233f3ba8947fb0f91cd701b83dfe6a/transformed/emoji2-1.0.0/AndroidManifest.xml:28:13-68
+48            android:exported="false" >
+48-->[androidx.emoji2:emoji2:1.0.0] /home/sahil/.gradle/caches/transforms-3/db233f3ba8947fb0f91cd701b83dfe6a/transformed/emoji2-1.0.0/AndroidManifest.xml:29:13-37
+49            <meta-data
+49-->[androidx.emoji2:emoji2:1.0.0] /home/sahil/.gradle/caches/transforms-3/db233f3ba8947fb0f91cd701b83dfe6a/transformed/emoji2-1.0.0/AndroidManifest.xml:31:13-33:52
+50                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+50-->[androidx.emoji2:emoji2:1.0.0] /home/sahil/.gradle/caches/transforms-3/db233f3ba8947fb0f91cd701b83dfe6a/transformed/emoji2-1.0.0/AndroidManifest.xml:32:17-75
+51                android:value="androidx.startup" />
+51-->[androidx.emoji2:emoji2:1.0.0] /home/sahil/.gradle/caches/transforms-3/db233f3ba8947fb0f91cd701b83dfe6a/transformed/emoji2-1.0.0/AndroidManifest.xml:33:17-49
+52            <meta-data
+52-->[androidx.lifecycle:lifecycle-process:2.4.0] /home/sahil/.gradle/caches/transforms-3/45759b04922bc547a81513b82a38ba1e/transformed/lifecycle-process-2.4.0/AndroidManifest.xml:31:13-33:52
+53                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+53-->[androidx.lifecycle:lifecycle-process:2.4.0] /home/sahil/.gradle/caches/transforms-3/45759b04922bc547a81513b82a38ba1e/transformed/lifecycle-process-2.4.0/AndroidManifest.xml:32:17-78
+54                android:value="androidx.startup" />
+54-->[androidx.lifecycle:lifecycle-process:2.4.0] /home/sahil/.gradle/caches/transforms-3/45759b04922bc547a81513b82a38ba1e/transformed/lifecycle-process-2.4.0/AndroidManifest.xml:33:17-49
+55        </provider>
+56    </application>
+57
+58</manifest>
