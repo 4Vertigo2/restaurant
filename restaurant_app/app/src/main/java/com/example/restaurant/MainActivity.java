@@ -3,6 +3,7 @@ package com.example.restaurant;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,5 +28,9 @@ public class MainActivity extends AppCompatActivity {
                     t.setText(response);
             }
         });
+
+        //switches activity when app launches to Activity
+        //used to test an Activity if you cannot run the Activity independantly
+        //startActivity(new Intent(this, LoginActivity.class));
     }
 }
