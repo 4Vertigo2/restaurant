@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.restaurant_app">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,21 +16,25 @@
         android:theme="@style/Theme.Restaurant_app"
         tools:targetApi="31">
 
-        <!--Launches MainActivity first -->
-        <activity android:name="com.example.restaurant.MainActivity" android:exported="true">
+        <!-- Launches MainActivity first -->
+        <activity
+            android:name="com.example.restaurant.MainActivity"
+            android:exported="true">
 
-            <!--Inside this activity you should be having below code for
-                intent filter which will check the default activity-->
+            <!--
+                Inside this activity you should be having below code for
+                intent filter which will check the default activity
+            -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.example.restaurant.LoginActivity"
             android:exported="true" />
+        <activity android:name="com.example.restaurant.RegisterActivity" android:exported="true"/>
     </application>
-<uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>
