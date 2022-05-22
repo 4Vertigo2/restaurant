@@ -44,6 +44,9 @@
         <activity
             android:name="com.example.restaurant.RegisterActivity"
             android:exported="true" />
+        <activity
+            android:name="com.example.restaurant.SettingsActivity"
+            android:exported="true" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"

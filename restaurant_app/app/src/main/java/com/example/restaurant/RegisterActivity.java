@@ -15,9 +15,18 @@ public class RegisterActivity extends AppCompatActivity {
     private LinearLayout registerContent;
     private EditText nameTxtField,surnameTxtField,userNameTxtField,passwordTxtField, phoneNumTxtField;
     private CheckBox staffBtn;
-    private Button registerBtn;
+    Button registerBtn;
 
-    private void registerInit(){
+    private void registerAddViews(){
+        registerContent.addView(nameTxtField);
+        registerContent.addView(surnameTxtField);
+        registerContent.addView(userNameTxtField);
+        registerContent.addView(passwordTxtField);
+        registerContent.addView(phoneNumTxtField);
+        registerContent.addView(staffBtn);
+        registerContent.addView(registerBtn);
+    }
+    public void activityInit(){
         //initializes views
         registerContent = new LinearLayout(this);
         nameTxtField = new EditText(this);
@@ -39,21 +48,16 @@ public class RegisterActivity extends AppCompatActivity {
         phoneNumTxtField.setInputType(InputType.TYPE_CLASS_PHONE);
         staffBtn.setText("Staff");
         registerBtn.setText("Register");
+
+        registerAddViews();
+        setContentView(registerContent);
     }
-    private void registerAddViews(){
-        registerContent.addView(nameTxtField);
-        registerContent.addView(surnameTxtField);
-        registerContent.addView(userNameTxtField);
-        registerContent.addView(passwordTxtField);
-        registerContent.addView(phoneNumTxtField);
-        registerContent.addView(staffBtn);
-        registerContent.addView(registerBtn);
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        registerInit();
-        registerAddViews();
-        setContentView(registerContent);
+        activityInit();
+        Help.goToActivity(this,registerBtn,new LoginActivity());
+
     }
 }
