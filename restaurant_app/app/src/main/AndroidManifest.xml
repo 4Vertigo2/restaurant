@@ -34,7 +34,12 @@
         <activity
             android:name="com.example.restaurant.LoginActivity"
             android:exported="true" />
-        <activity android:name="com.example.restaurant.RegisterActivity" android:exported="true"/>
+        <activity
+            android:name="com.example.restaurant.RegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.restaurant.SettingsActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

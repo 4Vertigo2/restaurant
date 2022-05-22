@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-40:12
-INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-40:12
-INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-40:12
-INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-40:12
+ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-45:12
 MERGED from [com.google.android.material:material:1.6.0] /home/sahil/.gradle/caches/transforms-3/1217d3aa52fa78bda9a0244b3a55003a/transformed/material-1.6.0/AndroidManifest.xml:17:1-26:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /home/sahil/.gradle/caches/transforms-3/66faa31fa2a70d68bf796b57d618a368/transformed/constraintlayout-2.0.1/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat:1.4.1] /home/sahil/.gradle/caches/transforms-3/3b1bc201b3bca652ca8cba6f27421397/transformed/appcompat-1.4.1/AndroidManifest.xml:17:1-24:12
@@ -43,22 +43,22 @@ MERGED from [androidx.documentfile:documentfile:1.0.0] /home/sahil/.gradle/cache
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/sahil/.gradle/caches/transforms-3/01bc8368ad5575d4d6f30c21d182f95c/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.print:print:1.0.0] /home/sahil/.gradle/caches/transforms-3/72f1940f015bcc005a737b3aab30d906/transformed/print-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.annotation:annotation-experimental:1.1.0] /home/sahil/.gradle/caches/transforms-3/e36aaea95b1e10850d139e7025f21ff0/transformed/annotation-experimental-1.1.0/AndroidManifest.xml:17:1-24:12
-INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-40:12
-INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-40:12
-INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-40:12
+INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-45:12
 	package
 		ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:4:5-41
 		INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml
 		INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml
-		ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-40:12
+		ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-45:12
 		INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml
 	xmlns:tools
 		ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:3:5-51
 	android:versionCode
 		INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml
-		ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-40:12
+		ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:1-45:12
 		INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:2:11-69
@@ -67,7 +67,7 @@ ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/m
 	android:name
 		ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:6:22-64
 application
-ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:8:5-38:19
+ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:8:5-43:19
 MERGED from [com.google.android.material:material:1.6.0] /home/sahil/.gradle/caches/transforms-3/1217d3aa52fa78bda9a0244b3a55003a/transformed/material-1.6.0/AndroidManifest.xml:24:5-20
 MERGED from [com.google.android.material:material:1.6.0] /home/sahil/.gradle/caches/transforms-3/1217d3aa52fa78bda9a0244b3a55003a/transformed/material-1.6.0/AndroidManifest.xml:24:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /home/sahil/.gradle/caches/transforms-3/66faa31fa2a70d68bf796b57d618a368/transformed/constraintlayout-2.0.1/AndroidManifest.xml:9:5-20
@@ -125,11 +125,17 @@ ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/m
 	android:name
 		ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:35:13-64
 activity#com.example.restaurant.RegisterActivity
-ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:37:9-99
+ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:37:9-39:39
 	android:exported
-		ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:37:74-97
+		ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:39:13-36
 	android:name
-		ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:37:19-73
+		ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:38:13-67
+activity#com.example.restaurant.SettingsActivity
+ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:40:9-42:38
+	android:exported
+		ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:42:13-36
+	android:name
+		ADDED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml:41:13-67
 uses-sdk
 INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/sahil/documents/programming/restaurant/restaurant_app/app/src/main/AndroidManifest.xml
