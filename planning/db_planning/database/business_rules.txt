@@ -24,7 +24,7 @@ LOGIN_TBL:
 
 1. LOGIN_USERNAME is a unique field, must be prefixed with a letter either s or c, to indicate whether the user is a STAFF or CUSTOMER, must be under 50 characters long, and cannot be null.
 
-2. LOGIN_PASSWORD cannot be null, must be under 50 character, must be at least 8 characters, 1 special character, 1 uppercase and 1 lowercase character.
+2. LOGIN_PASSWORD cannot be null, must be under 50 character, must be at least 8 characters, 1 number, 1 uppercase and 1 lowercase character.
 
 
 ORDER_TBL:

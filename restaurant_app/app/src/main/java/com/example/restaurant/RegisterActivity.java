@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import java.util.regex.*;
 
 public class RegisterActivity extends AppCompatActivity {
     private LinearLayout registerContent;
@@ -60,4 +61,37 @@ public class RegisterActivity extends AppCompatActivity {
         Help.goToActivity(this,registerBtn,new LoginActivity());
 
     }
+    //checks if field is left blank after trimming whitespaces
+    private boolean isBlankChk(String string){
+        return string.trim().isEmpty();
+    }
+
+    /*Minimum eight characters,
+    maximum of 50 characters,
+    at least one uppercase letter,
+    one lowercase letter
+    and one number:
+     */
+
+    private boolean passwordChk(String password){
+        //compiles regex
+        Pattern passPat = Pattern.compile("^(?=.[a-z])(?=.[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,50}$");
+        //searches for the pattern in the string
+        Matcher match = passPat.matcher(password);
+        //match.find() returns whether the pattern was found in the password.
+        return match.find();
+    }
+    /*
+    has to start with 0,
+    second character 8, 7 or 6.
+    has to be at most 8 other characters
+     */
+
+    private boolean phoneNumCheck(String phoneNum){
+
+        Pattern  phonePat = Pattern.compile("^(\0)[6-8][0-9]{8}$");
+        Matcher match = phonePat.matcher(phoneNum);
+        return match.find();
+    }
+
 }
