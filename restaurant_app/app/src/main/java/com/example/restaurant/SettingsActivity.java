@@ -1,7 +1,6 @@
 package com.example.restaurant;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 public class SettingsActivity extends RegisterActivity{
@@ -12,6 +11,5 @@ public class SettingsActivity extends RegisterActivity{
 
         activityInit();
         registerBtn.setText("Save");
-
     }
 }
