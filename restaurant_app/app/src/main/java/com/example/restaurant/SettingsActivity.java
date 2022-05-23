@@ -12,6 +12,5 @@ public class SettingsActivity extends RegisterActivity{
 
         activityInit();
         registerBtn.setText("Save");
-        registerBtn.setText("hello");
     }
 }
