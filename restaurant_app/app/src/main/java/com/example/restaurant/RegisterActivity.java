@@ -88,9 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
      */
 
     private boolean phoneNumCheck(String phoneNum){
-        if(isBlankChk(phoneNum)){
-            return false;
-        }
+
         Pattern  phonePat = Pattern.compile("^(\0)[6-8][0-9]{8}$");
         Matcher match = phonePat.matcher(phoneNum);
         return match.find();
