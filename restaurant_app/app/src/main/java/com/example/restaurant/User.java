@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class User {
     private static PHPRequest php = new PHPRequest();
 
-    private static boolean userExists;
+    private static boolean userExists = true;
     private static int userID;
     private static String userFirstName;
     private static String userSurname;
@@ -22,6 +22,9 @@ public class User {
 
     private static JSONArray arr;
 
+    /*checks if a user is in the database. If they are, runs the code to process json and assign to variables above
+    if they aren't, sets userExists to false which is used in by the Login Page to update it respectively.
+     */
     public static void userInit(Activity act, String username, String password){
 
         ContentValues cv = new ContentValues();
@@ -34,8 +37,9 @@ public class User {
                 try {
                     arr = new JSONArray(response);
 
+                    /*when json response fails, it returns an empty array. It will either find
+                    something or it won't as login records are unique*/
                     if (arr.length() > 0) {
-                        userExists = true;
                         processResponse(response);
                     } else {
                         userExists = false;
@@ -47,16 +51,31 @@ public class User {
         }
         );
     }
+
+    /*the following code is used to process the Json response of all the data about the user,
+
+
+    when json is sent from the server, it is sent as a string map which can be parsed into an
+    JSONArray or JSONObject, which can then be used to extract the data with the Keys.
+     */
     private static void processUserResponse(String response){
         try{
+            /*Json response comes in an array as we're extracting all the data from 2 tables
+              first array in the response is from the LOGIN_TBL
+              second array is all the user data, either from Staff or Customer tbl's*/
             JSONObject loginData = (JSONObject) arr.get(1);
             JSONObject userData = (JSONObject) arr.get(2);
 
+            //both Customers and Staff have the same login data
             userLoginID = loginData.getInt("LOGIN_ID");
             userLoginUsername = loginData.getString("LOGIN_USERNAME");
             userLoginPassword = loginData.getString("LOGIN_PASSWORD");
             userLoginStaff = loginData.getBoolean("LOGIN_STAFF");
 
+            /*STAFF and CUSTOMER tbl's have different field names,
+            hence why we needed to process them seperately.
+            STAFF_TBL also has a few extra columns.
+             */
             if(userLoginStaff){
                 userID = userData.getInt("STAFF_ID");
                 userFirstName = userData.getString("STAFF_FIRST_NAME");
@@ -76,6 +95,13 @@ public class User {
         }
     }
 
+    /*used when the user updates their data in the settings page
+    we send 1 response updating everything.
+
+    the following code is also be used for inserting brand new users in the register page
+    however, their details would have to be set first using userSetDetails() which will first
+    update all the variables.
+     */
    public static void userInsertData(Activity act){
         ContentValues cv = new ContentValues();
         cv.put("user_first_name",getUserFirstName());
@@ -84,19 +110,21 @@ public class User {
         cv.put("user_login_password",getUserLoginPassword());
         cv.put("user_phone_number",getUserPhoneNumber());
 
+        //inserts to STAFF_TBL
         if(getUserLoginStaff()){
         cv.put("user_login_staff",getUserLoginStaff());
         cv.put("user_restaurant_id",getStaffRestaurantID());
         php.doRequest(act,"php_staff_insert",cv,null);
         return;
         }
-
+        //inserts into CUSTOMER_TBL
         php.doRequest(act,"php_customer_insert",cv,null);
    }
 
 
 
-
+/*following is standard get and set methods. This is what you would use to request data
+ around the program*/
     public static int getUserID(){
         return userID;
     }
