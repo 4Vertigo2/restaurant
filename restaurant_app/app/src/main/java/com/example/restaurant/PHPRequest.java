@@ -53,6 +53,7 @@ Implementation Example in any Activity:
 
 
  */
+//Class used to get data from an external database which has been queried through a php request
 public class PHPRequest {
     OkHttpClient client = new OkHttpClient();
 

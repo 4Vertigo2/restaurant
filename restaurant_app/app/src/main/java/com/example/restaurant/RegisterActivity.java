@@ -62,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
     //checks if field is left blank after trimming whitespaces
+    //returns true if it is blank and false if it is not
     private boolean isBlankChk(String string){
         return string.trim().isEmpty();
     }
@@ -72,7 +73,6 @@ public class RegisterActivity extends AppCompatActivity {
     one lowercase letter
     and one number:
      */
-
     private boolean passwordChk(String password){
         //compiles regex
         Pattern passPat = Pattern.compile("^(?=.[a-z])(?=.[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,50}$");
@@ -81,17 +81,18 @@ public class RegisterActivity extends AppCompatActivity {
         //match.find() returns whether the pattern was found in the password.
         return match.find();
     }
+    
     /*
     has to start with 0,
     second character 8, 7 or 6.
     has to be at most 8 other characters
      */
-
     private boolean phoneNumCheck(String phoneNum){
 
         Pattern  phonePat = Pattern.compile("^(\0)[6-8][0-9]{8}$");
         Matcher match = phonePat.matcher(phoneNum);
         return match.find();
     }
+
 
 }
