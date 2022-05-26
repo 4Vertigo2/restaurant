@@ -1,6 +1,6 @@
 package com.example.restaurant;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity
 
 import android.app.Activity;
 import android.content.DialogInterface;
