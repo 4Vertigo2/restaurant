@@ -15,7 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Restaurant_app"
         tools:targetApi="31">
-
         <!-- Launches MainActivity first -->
         <activity
             android:name="com.example.restaurant.MainActivity"
@@ -39,7 +38,13 @@
             android:exported="true" />
         <activity
             android:name="com.example.restaurant.SettingsActivity"
-            android:exported="true"/>
+            android:exported="true" />
+        <activity
+            android:name="com.example.restaurant.CustomerOrderActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.restaurant.HistoryActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

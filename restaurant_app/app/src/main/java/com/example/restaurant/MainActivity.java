@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //switches activity when app launches to Activity
-        //used to test an Activity if you cannot run the Activity independantly
+        //used to test an Activity if you cannot run the Activity independently
         //startActivity(new Intent(this, LoginActivity.class));
 
     }

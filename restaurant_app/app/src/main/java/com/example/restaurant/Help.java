@@ -17,4 +17,14 @@ public class Help {
     public static void goToActivity(Context context,Button btn, Activity act){
         btn.setOnClickListener(v -> transfer(context,act));
     }
+
+    //method to convert status codes to statuses
+    private String convertCodeToStatus(int status){
+        if (status == 0)
+            return "Ready";
+        if (status == 1)
+            return "Collected";
+        else
+            return "Pending";
+    }
 }
