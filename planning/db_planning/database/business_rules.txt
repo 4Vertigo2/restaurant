@@ -14,7 +14,7 @@ STAFF_TBL:
 
 2. STAFF_FIRST_NAME and STAFF_SURNAME, cannot be null and each must be under 50 characters long
 
-3. STAFF_RATING is a derived field based on the average percentage of the CUSTOMERs ORDER_RATING of all ORDERs done by the STAFF memeber 
+3. STAFF_PHONE_NUMBER must be 9 digits in length, must begin with a 0, cannot be null, and must be unique.
 
 RESTAURANT_TBL:
 
@@ -26,6 +26,7 @@ LOGIN_TBL:
 
 2. LOGIN_PASSWORD cannot be null, must be under 50 character, must be at least 8 characters, 1 number, 1 uppercase and 1 lowercase character.
 
+3. LOGIN_STAFF cannot be null, has a default value of false(0) and is used to determine whether the user is a STAFF member or not.
 
 ORDER_TBL:
 
