@@ -13,9 +13,9 @@ import android.widget.TextView;
 import java.util.regex.*;
 
 public class RegisterActivity extends AppCompatActivity {
-    private LinearLayout registerContent;
-    private EditText nameTxtField,surnameTxtField,userNameTxtField,passwordTxtField, phoneNumTxtField;
-    private CheckBox staffBtn;
+    LinearLayout registerContent;
+    EditText nameTxtField,surnameTxtField,userNameTxtField,passwordTxtField, phoneNumTxtField;
+    private CheckBox staffChkBox;
     Button registerBtn;
 
     private void registerAddViews(){
@@ -24,7 +24,6 @@ public class RegisterActivity extends AppCompatActivity {
         registerContent.addView(userNameTxtField);
         registerContent.addView(passwordTxtField);
         registerContent.addView(phoneNumTxtField);
-        registerContent.addView(staffBtn);
         registerContent.addView(registerBtn);
     }
     public void activityInit(){
@@ -35,7 +34,6 @@ public class RegisterActivity extends AppCompatActivity {
         userNameTxtField = new EditText(this);
         passwordTxtField = new EditText(this);
         phoneNumTxtField = new EditText(this);
-        staffBtn = new CheckBox(this);
         registerBtn = new Button(this);
 
         //sets up views
@@ -47,17 +45,23 @@ public class RegisterActivity extends AppCompatActivity {
         passwordTxtField.setTransformationMethod(PasswordTransformationMethod.getInstance());
         phoneNumTxtField.setHint("Phone number");
         phoneNumTxtField.setInputType(InputType.TYPE_CLASS_PHONE);
-        staffBtn.setText("Staff");
         registerBtn.setText("Register");
 
         registerAddViews();
-        setContentView(registerContent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityInit();
+
+        staffChkBox = new CheckBox(this);
+        registerContent.addView(staffChkBox);
+        staffChkBox.setText("Staff");
+
+
+        setContentView(registerContent);
+
         Help.goToActivity(this,registerBtn,new LoginActivity());
 
     }
