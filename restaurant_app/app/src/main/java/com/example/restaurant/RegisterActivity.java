@@ -14,14 +14,14 @@ import java.util.regex.*;
 
 public class RegisterActivity extends AppCompatActivity {
     LinearLayout registerContent;
-    EditText nameTxtField,surnameTxtField,userNameTxtField,passwordTxtField, phoneNumTxtField;
+    EditText nameTxtField,surnameTxtField,usernameTxtField,passwordTxtField, phoneNumTxtField;
     private CheckBox staffChkBox;
     Button registerBtn;
 
     private void registerAddViews(){
         registerContent.addView(nameTxtField);
         registerContent.addView(surnameTxtField);
-        registerContent.addView(userNameTxtField);
+        registerContent.addView(usernameTxtField);
         registerContent.addView(passwordTxtField);
         registerContent.addView(phoneNumTxtField);
         registerContent.addView(registerBtn);
@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerContent = new LinearLayout(this);
         nameTxtField = new EditText(this);
         surnameTxtField = new EditText(this);
-        userNameTxtField = new EditText(this);
+        usernameTxtField = new EditText(this);
         passwordTxtField = new EditText(this);
         phoneNumTxtField = new EditText(this);
         registerBtn = new Button(this);
@@ -40,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerContent.setOrientation(LinearLayout.VERTICAL);
         nameTxtField.setHint("Name");
         surnameTxtField.setHint("Surname");
-        userNameTxtField.setHint("Username");
+        usernameTxtField.setHint("Username");
         passwordTxtField.setHint("Password");
         passwordTxtField.setTransformationMethod(PasswordTransformationMethod.getInstance());
         phoneNumTxtField.setHint("Phone number");
