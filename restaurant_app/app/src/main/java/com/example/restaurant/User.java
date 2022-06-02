@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class User {
     private static PHPRequest php = new PHPRequest();
 
-    private static boolean userExists = true;
+    private static boolean userExists;
     private static int userID;
     private static String userFirstName;
     private static String userSurname;
@@ -31,22 +31,21 @@ public class User {
         cv.put("username",username);
         cv.put("password",password);
 
-        php.doRequest(act, "php_login", cv, new RequestHandler() {
-            @Override
-            public void processResponse(String response) {
-                try {
-                    arr = new JSONArray(response);
+        php.doRequest(act, "login", cv, response -> {
+            try {
+                arr = new JSONArray(response);
 
-                    /*when json response fails, it returns an empty array. It will either find
-                    something or it won't as login records are unique*/
-                    if (arr.length() > 0) {
-                        processResponse(response);
-                    } else {
-                        userExists = false;
-                    }
-                } catch (JSONException e) {
-                    System.out.println("User Class : Json failed");
+                /*when json response fails, it returns an empty array. It will either find
+                something or it won't as login records are unique*/
+                if (arr.length() > 0) {
+                    userExists = true;
+                    processUserResponse();
                 }
+                else{
+                    userExists = false;
+                }
+            } catch (JSONException e) {
+                System.out.println("User Class : Json failed");
             }
         }
         );
@@ -58,24 +57,35 @@ public class User {
     when json is sent from the server, it is sent as a string map which can be parsed into an
     JSONArray or JSONObject, which can then be used to extract the data with the Keys.
      */
-    private static void processUserResponse(String response){
+    private static void processUserResponse(){
         try{
             /*Json response comes in an array as we're extracting all the data from 2 tables
               first array in the response is from the LOGIN_TBL
               second array is all the user data, either from Staff or Customer tbl's*/
-            JSONObject loginData = (JSONObject) arr.get(1);
-            JSONObject userData = (JSONObject) arr.get(2);
+            String userLoginStaffString;
+            JSONObject loginData = (JSONObject) arr.get(0);
+            JSONObject userData = (JSONObject) arr.get(1);
 
             //both Customers and Staff have the same login data
             userLoginID = loginData.getInt("LOGIN_ID");
             userLoginUsername = loginData.getString("LOGIN_USERNAME");
             userLoginPassword = loginData.getString("LOGIN_PASSWORD");
-            userLoginStaff = loginData.getBoolean("LOGIN_STAFF");
+            userLoginStaffString = loginData.getString("LOGIN_STAFF");
+
+            //.getBool was not working correctly, did it manually.
+            if(userLoginStaffString.equals("1")){
+                userLoginStaff = true;
+            }
+            else{
+                userLoginStaff = false;
+            }
+
 
             /*STAFF and CUSTOMER tbl's have different field names,
-            hence why we needed to process them seperately.
+            hence why we needed to process them separately.
             STAFF_TBL also has a few extra columns.
              */
+
             if(userLoginStaff){
                 userID = userData.getInt("STAFF_ID");
                 userFirstName = userData.getString("STAFF_FIRST_NAME");
