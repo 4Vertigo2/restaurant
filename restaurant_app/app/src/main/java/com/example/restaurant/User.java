@@ -72,7 +72,7 @@ public class User {
             userLoginPassword = loginData.getString("LOGIN_PASSWORD");
             userLoginStaffString = loginData.getString("LOGIN_STAFF");
 
-            //.getBool was not working correctly, did it manually.
+            //.getBool was not working correctly, assigning it manually.
             if(userLoginStaffString.equals("1")){
                 userLoginStaff = true;
             }

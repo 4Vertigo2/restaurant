@@ -53,17 +53,24 @@ public class LoginActivity extends AppCompatActivity {
 
     //checks to see if a user exists, logs them in if they do.
     private void loginUser(String username, String password){
-        userNotFoundLbl.setText("");
+        Intent intent;
         User.userInit(this,username,password);
+        userNotFoundLbl.setText("");
 
-        if(User.getUserExists()){
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
+        //removes all previous views so as to make everything blank again
+        if(!User.getUserExists()){
+           userNotFoundLbl.setText("Username or Password is incorrect, please try again.");
+           return;
         }
-        else{
-            //removes all previous views so as to make everything blank again
-            userNotFoundLbl.setText("Username or Password is incorrect, please try again.");
+
+        if(User.getUserLoginStaff()){
+           intent = new Intent(this, SettingsActivity.class);
+           startActivity(intent);
+           return;
         }
+
+        intent = new  Intent(this, SettingsActivity.class);
+        startActivity(intent);
 
     }
 
