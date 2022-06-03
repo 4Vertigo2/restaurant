@@ -13,10 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class HistoryActivity extends Activity {
+    //class for the history page of customer's orders
+    //optimise add views by extending CustomerOrderActivity (wip) [ ]
     private LinearLayout orderHistoryContent;
     private TextView orderHistoryTxf;/*, restaurantNameTxf, orderDateTxf;*/
     private CardView orderCard;
-    Button orderViewBtn;
+    private Button orderViewBtn;
 
     private void OrderAddViews(){
         //adds views to linearlayout

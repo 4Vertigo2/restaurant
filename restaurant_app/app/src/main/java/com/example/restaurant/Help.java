@@ -19,7 +19,7 @@ public class Help {
     }
 
     //method to convert status codes to statuses
-    private String convertCodeToStatus(int status){
+    public String convertCodeToStatus(int status){
         if (status == 0)
             return "Ready";
         if (status == 1)
