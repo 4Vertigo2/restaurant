@@ -71,9 +71,19 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                register();
                 successText.setText("");
-                successText.setText("You've been registered");
+                if(!isUserInDatabase(usernameTxtField.getText().toString(), passwordTxtField.getText().toString())) {
+                    if(!validateAllInput()){
+                        successText.setText("Make sure all the details are correct.");
+                    }
+                    else{
+                        register();
+                        successText.setText("You have been registered");
+                    }
+                }
+                else{
+                    successText.setText("You are already registered.");
+                }
             }
         });
     }
@@ -82,55 +92,26 @@ public class RegisterActivity extends AppCompatActivity {
         User.registerUser(this, nameTxtField.getText().toString(), surnameTxtField.getText().toString(), usernameTxtField.getText().toString(), passwordTxtField.getText().toString(), phoneNumTxtField.getText().toString(), staffChkBox.isChecked());
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //checks if field is left blank after trimming whitespaces
-    private boolean isBlankChk(String string){
-        return string.trim().isEmpty();
+    public boolean isUserInDatabase(String username, String password){
+       User.userInit(this, username, password);
+       return User.getUserExists();
     }
 
-    /*Minimum eight characters,
-    maximum of 50 characters,
-    at least one uppercase letter,
-    one lowercase letter
-    and one number:
-     */
+    public boolean validateAllInput(){
 
-    private boolean passwordChk(String password){
-        //compiles regex
-        Pattern passPat = Pattern.compile("^(?=.[a-z])(?=.[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,50}$");
-        //searches for the pattern in the string
-        Matcher match = passPat.matcher(password);
-        //match.find() returns whether the pattern was found in the password.
-        return match.find();
+        if(Validation.isBlankChk(nameTxtField.getText().toString()) && Validation.isBlankChk(surnameTxtField.getText().toString())&&Validation.isBlankChk(usernameTxtField.getText().toString())&&Validation.isBlankChk(passwordTxtField.getText().toString())&&Validation.isBlankChk(phoneNumTxtField.getText().toString())){
+            return false;
+        }
+        if(!Validation.phoneNumCheck(phoneNumTxtField.getText().toString())){
+            return false;
+        }
+        if(!Validation.passwordChk(passwordTxtField.getText().toString())){
+            return false;
+        }
+
+
+
+
+        return true;
     }
-    /*
-    has to start with 0,
-    second character 8, 7 or 6.
-    has to be at most 8 other characters
-     */
-
-    private boolean phoneNumCheck(String phoneNum){
-
-        Pattern  phonePat = Pattern.compile("^(\0)[6-8][0-9]{8}$");
-        Matcher match = phonePat.matcher(phoneNum);
-        return match.find();
-    }
-
 }
