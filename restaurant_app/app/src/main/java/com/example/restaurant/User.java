@@ -10,14 +10,24 @@ public class User {
     private static PHPRequest php = new PHPRequest();
 
     private static boolean userExists;
+
+    //CUSTOMER/STAFF_ID
     private static int userID;
+    //CUSTOMER/STAFF_FIRST_NAME & ..._SURNAME
     private static String userFirstName;
     private static String userSurname;
+
+    //CUSTOMER/STAFF_PHONE_NUMBER
     private static String userPhoneNumber;
+
+    //LOGIN_ID for CUSTOMER or STAFF
     private static int userLoginID;
+    //LOGIN_USERNAME & LOGIN_PASSWORD for CUSTOMER or STAFF
     private static String userLoginUsername;
     private static String userLoginPassword;
+    //is user a CUSTOMER OR STAFF
     private static boolean userLoginStaff;
+    //if user is a STAFF what RESTAURANT do they work for.
     private static int staffRestaurantID;
 
     private static JSONArray arr;
