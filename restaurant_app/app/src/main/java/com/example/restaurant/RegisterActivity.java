@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -55,16 +56,50 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityInit();
 
+        TextView successText = new TextView(this);
+        registerContent.addView(successText);
+
         staffChkBox = new CheckBox(this);
         registerContent.addView(staffChkBox);
         staffChkBox.setText("Staff");
 
 
         setContentView(registerContent);
-
         Help.goToActivity(this,registerBtn,new LoginActivity());
 
+
+        registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                register();
+                successText.setText("");
+                successText.setText("You've been registered");
+            }
+        });
     }
+
+    private void register(){
+        User.registerUser(this, nameTxtField.getText().toString(), surnameTxtField.getText().toString(), usernameTxtField.getText().toString(), passwordTxtField.getText().toString(), phoneNumTxtField.getText().toString(), staffChkBox.isChecked());
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //checks if field is left blank after trimming whitespaces
     private boolean isBlankChk(String string){
         return string.trim().isEmpty();
