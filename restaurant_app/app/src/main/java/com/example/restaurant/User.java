@@ -112,28 +112,48 @@ public class User {
     however, their details would have to be set first using userSetDetails() which will first
     update all the variables.
      */
-   public static void userInsertData(Activity act){
+   public static ContentValues userInsertData(Activity act){
         ContentValues cv = new ContentValues();
         cv.put("user_first_name",getUserFirstName());
         cv.put("user_surname", getUserSurname());
         cv.put("user_login_username", getUserLoginUsername());
         cv.put("user_login_password",getUserLoginPassword());
         cv.put("user_phone_number",getUserPhoneNumber());
+        //will remove convertBoolToInt later
+        int convertBoolToInt = getUserLoginStaff()? 1:0;
+        cv.put("user_login_staff",convertBoolToInt);
 
-        //inserts to STAFF_TBL
+        //for now I'm just going to make the restaurant staff be assigned a random restaurant.
         if(getUserLoginStaff()){
-        cv.put("user_login_staff",getUserLoginStaff());
-        cv.put("user_restaurant_id",getStaffRestaurantID());
-        php.doRequest(act,"php_staff_insert",cv,null);
-        return;
+            //cv.put("user_restaurant_id",getStaffRestaurantID());
+            cv.put("user_restaurant_id",1);
         }
-        //inserts into CUSTOMER_TBL
-        php.doRequest(act,"php_customer_insert",cv,null);
+       return cv;
+   }
+
+   public static void registerUser(Activity act,String name, String surname, String username, String password, String phoneNumber, Boolean isStaff){
+        setUserFirstName(name);
+        setUserSurname(surname);
+        setUserLoginUsername(username);
+        setUserLoginPassword(password);
+        setUserPhoneNumber(phoneNumber);
+        setUserLoginStaff(isStaff);
+
+        ContentValues cv = userInsertData(act);
+
+       //inserts to STAFF_TBL
+       if(getUserLoginStaff()){
+          php.doRequest(act,"staff_insert",cv,null);
+          return;
+       }
+
+       //inserts into CUSTOMER_TBL
+       php.doRequest(act,"customer_insert",cv,null);
    }
 
 
 
-/*following is standard get and set methods. This is what you would use to request data
+    /*following is standard get and set methods. This is what you would use to request data
  around the program*/
     public static int getUserID(){
         return userID;
