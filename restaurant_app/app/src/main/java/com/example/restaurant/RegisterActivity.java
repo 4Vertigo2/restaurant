@@ -63,7 +63,6 @@ public class RegisterActivity extends AppCompatActivity {
         registerContent.addView(staffChkBox);
         staffChkBox.setText("Staff");
 
-
         setContentView(registerContent);
         Help.goToActivity(this,registerBtn,new LoginActivity());
 
@@ -74,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
                 successText.setText("");
                 if(!isUserInDatabase(usernameTxtField.getText().toString(), passwordTxtField.getText().toString())) {
                     if(!validateAllInput()){
-                        successText.setText("Make sure all the details are correct.");
+                        successText.setText("Please make sure all the details are correct.");
                     }
                     else{
                         register();
@@ -99,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public boolean validateAllInput(){
 
-        if(Validation.isBlankChk(nameTxtField.getText().toString()) && Validation.isBlankChk(surnameTxtField.getText().toString())&&Validation.isBlankChk(usernameTxtField.getText().toString())&&Validation.isBlankChk(passwordTxtField.getText().toString())&&Validation.isBlankChk(phoneNumTxtField.getText().toString())){
+        if(Validation.isBlankChk(nameTxtField.getText().toString()) || Validation.isBlankChk(surnameTxtField.getText().toString()) || Validation.isBlankChk(usernameTxtField.getText().toString()) || Validation.isBlankChk(passwordTxtField.getText().toString()) || Validation.isBlankChk(phoneNumTxtField.getText().toString())){
             return false;
         }
         if(!Validation.phoneNumCheck(phoneNumTxtField.getText().toString())){
@@ -108,9 +107,6 @@ public class RegisterActivity extends AppCompatActivity {
         if(!Validation.passwordChk(passwordTxtField.getText().toString())){
             return false;
         }
-
-
-
 
         return true;
     }

@@ -141,6 +141,7 @@ public class User {
        return cv;
    }
 
+   //takes in all the details and sends it to the php which inserts it into the database
    public static void registerUser(Activity act,String name, String surname, String username, String password, String phoneNumber, Boolean isStaff){
         setUserFirstName(name);
         setUserSurname(surname);
@@ -160,6 +161,29 @@ public class User {
        //inserts into CUSTOMER_TBL
        php.doRequest(act,"customer_insert",cv,null);
    }
+
+    public static void updateUser(Activity act,String name, String surname, String username, String password, String phoneNumber){
+        setUserFirstName(name);
+        setUserSurname(surname);
+        setUserLoginUsername(username);
+        setUserLoginPassword(password);
+        setUserPhoneNumber(phoneNumber);
+
+
+        ContentValues cv = userInsertData(act);
+        cv.put("user_id", getUserID());
+        cv.put("user_login_id", getUserLoginID());
+
+        //inserts to STAFF_TBL
+        if(getUserLoginStaff()){
+            php.doRequest(act,"staff_update",cv,null);
+            return;
+        }
+
+        //inserts into CUSTOMER_TBL
+        php.doRequest(act,"customer_update",cv,null);
+    }
+
 
 
 

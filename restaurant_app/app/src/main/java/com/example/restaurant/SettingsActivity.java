@@ -26,17 +26,24 @@ public class SettingsActivity extends RegisterActivity{
             @Override
             public void onClick(View v) {
                 successText.setText("");
-                successText.setText("Updated Successfully");
-                updateDetails();
+                if(isUserInDatabase(usernameTxtField.getText().toString(), passwordTxtField.getText().toString())){
+                    if(validateAllInput()){
+                        successText.setText("Updated Successfully");
+                        updateDetails();
+                    }
+                    else{
+                        successText.setText("Please make sure that all your details are correct ");
+                    }
+                }
+                else{
+                    successText.setText("Username and Password is already taken.");
+                }
             }
         });
     }
 
     private void updateDetails(){
-        User.setUserFirstName(nameTxtField.getText().toString());
-        User.setUserSurname(surnameTxtField.getText().toString());
-        User.setUserLoginUsername(usernameTxtField.getText().toString());
-        User.setUserLoginPassword(passwordTxtField.getText().toString());
-        User.setUserPhoneNumber(phoneNumTxtField.getText().toString());
+        User.updateUser(this,nameTxtField.getText().toString(),surnameTxtField.getText().toString(),usernameTxtField.getText().toString(),passwordTxtField.getText().toString(),phoneNumTxtField.getText().toString());
+
     }
 }
