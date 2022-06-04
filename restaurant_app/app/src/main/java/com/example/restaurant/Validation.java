@@ -20,8 +20,8 @@ public class Validation {
      */
 
     public static boolean passwordChk(String password){
-        //compiles regex
-        Pattern passPat = Pattern.compile("^(?=.[a-z])(?=.[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,50}$");
+        //compiles regex""
+        Pattern passPat = Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$");
         //searches for the pattern in the string
         Matcher match = passPat.matcher(password);
         //match.find() returns whether the pattern was found in the password.
@@ -34,7 +34,7 @@ public class Validation {
      */
 
     public static boolean phoneNumCheck(String phoneNum){
-        Pattern  phonePat = Pattern.compile("^(\0)[6-8][0-9]{8}$");
+        Pattern  phonePat = Pattern.compile("^(\\+27|0)[6-8][0-9]{8}$");
         Matcher match = phonePat.matcher(phoneNum);
         return match.find();
     }
