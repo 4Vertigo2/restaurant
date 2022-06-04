@@ -5,6 +5,7 @@ import androidx.cardview.widget.CardView;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -26,57 +28,26 @@ public class CustomerOrderActivity extends Activity {
     private TextView orderCurrTxf;/*, statusTxf, restaurantNameTxf, orderTimeTxf*/
     private CardView orderCard;
     private Button orderHistoryBtn;
-    private Activity act;
     //Php requests
     OkHttpClient client = new OkHttpClient();
     private static PHPRequest php = new PHPRequest();
 
     private void OrderAddViews(){
         //adds views to linearlayout
-        orderCard.addView(orderCurrTxf);
+//        orderCard.addView(orderCurrTxf);
 //        orderCard.addView(statusTxf);
 //        orderCard.addView(restaurantNameTxf);
 //        orderCard.addView(orderTimeTxf);
         viewOrderContent.addView(orderHistoryBtn);
-        viewOrderContent.addView(orderCard);
+//        viewOrderContent.addView(orderCard);
     }
 
-    public void activityInit(int customerID){
-        ContentValues cv = new ContentValues();
-        cv.put("customer_id", customerID);
-        cv.put("status", 0);
-        php.doRequest(act, "customer_order", cv, new RequestHandler() {
-            @Override
-            public void processResponse(String response) {
-                try {
-                    Help help = new Help();
-                    JSONArray jArr = new JSONArray(response);
-                    for (int i = 0; i < jArr.length(); i++) {
-                        JSONObject jObj = jArr.getJSONObject(i);
-                        int orderID = jObj.getInt("ORDER_ID");
-                        String orderStatus = help.convertCodeToStatus(jObj.getInt("ORDER_STATUS"));
-                        String restaurant = jObj.getString("RESTAURANT_NAME");
-                        String orderTime = jObj.getString("ORDER_TIME");
-                        String str = orderID + "\n" + orderStatus + "\n" +
-                                restaurant + "\n" + orderTime + "\n";
-                    }
-                }
-                catch (JSONException e) {
-                    System.out.println("Order Class : JSON failed");
-                }
-            }
-        });
-        // CustomerRequest window feature action bar
-        requestWindowFeature(Window.FEATURE_ACTION_BAR);
-        // Set the CardView layoutParams
-        ActionBar.LayoutParams params = new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT,
-                ActionBar.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER;
+    public void activityInit(){
 
         //initialises views
         viewOrderContent = new LinearLayout(this);
-        orderCard = new CardView(this);
-        orderCurrTxf = new TextView(this);
+//        orderCard = new CardView(this);
+//        orderCurrTxf = new TextView(this);
         //old textviews for setting each field individually
 //        statusTxf = new TextView(this);
 //        restaurantNameTxf = new TextView(this);
@@ -84,17 +55,6 @@ public class CustomerOrderActivity extends Activity {
         orderHistoryBtn = new Button(this);
 
         //sets views
-        viewOrderContent.setOrientation(LinearLayout.VERTICAL);
-        orderCard.setLayoutParams(params);
-        orderCard.setRadius(9);
-        orderCard.setContentPadding(15,15,870,15);
-        orderCard.setCardBackgroundColor(Color.parseColor("#D3D3D3"));
-        orderCard.setMaxCardElevation(15);
-        orderCard.setCardElevation(9);
-//        orderIdTxf.setHint("#0000");
-//        statusTxf.setHint("Default");
-//        restaurantNameTxf.setHint("Restaurant");
-//        orderTimeTxf.setHint("00:00");
         orderHistoryBtn.setText("History");
 
         OrderAddViews();
@@ -106,8 +66,30 @@ public class CustomerOrderActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         User user = new User();
-        activityInit(user.getUserID());
+//        activityInit(user.getUserID());
+        activityInit();
         Help.goToActivity(this, orderHistoryBtn, new HistoryActivity());
 
+
+        ContentValues cv = new ContentValues();
+        cv.put("customer_id", 1);
+        cv.put("status", 0);
+
+        php.doRequest(CustomerOrderActivity.this, "customer_order", cv, response ->  {
+                try {
+                    Help help = new Help();
+                    JSONArray jArr = new JSONArray(response);
+                    for (int i = 0; i < jArr.length(); i++) {
+                        JSONObject jObj = jArr.getJSONObject(i);
+                        CustomerRequest cr = new CustomerRequest(this);
+                        cr.populate(jObj);
+                        viewOrderContent.addView(cr);
+                        setContentView(viewOrderContent);
+                    }
+                }
+                catch (JSONException e) {
+                    System.out.println("Order Class : JSON failed");
+                }
+        });
     }
 }
