@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -13,18 +14,17 @@ import android.widget.TextView;
 import java.util.regex.*;
 
 public class RegisterActivity extends AppCompatActivity {
-    private LinearLayout registerContent;
-    private EditText nameTxtField,surnameTxtField,userNameTxtField,passwordTxtField, phoneNumTxtField;
-    private CheckBox staffBtn;
+    LinearLayout registerContent;
+    EditText nameTxtField,surnameTxtField,usernameTxtField,passwordTxtField, phoneNumTxtField;
+    private CheckBox staffChkBox;
     Button registerBtn;
 
     private void registerAddViews(){
         registerContent.addView(nameTxtField);
         registerContent.addView(surnameTxtField);
-        registerContent.addView(userNameTxtField);
+        registerContent.addView(usernameTxtField);
         registerContent.addView(passwordTxtField);
         registerContent.addView(phoneNumTxtField);
-        registerContent.addView(staffBtn);
         registerContent.addView(registerBtn);
     }
     public void activityInit(){
@@ -32,66 +32,86 @@ public class RegisterActivity extends AppCompatActivity {
         registerContent = new LinearLayout(this);
         nameTxtField = new EditText(this);
         surnameTxtField = new EditText(this);
-        userNameTxtField = new EditText(this);
+        usernameTxtField = new EditText(this);
         passwordTxtField = new EditText(this);
         phoneNumTxtField = new EditText(this);
-        staffBtn = new CheckBox(this);
         registerBtn = new Button(this);
 
         //sets up views
         registerContent.setOrientation(LinearLayout.VERTICAL);
         nameTxtField.setHint("Name");
         surnameTxtField.setHint("Surname");
-        userNameTxtField.setHint("Username");
+        usernameTxtField.setHint("Username");
         passwordTxtField.setHint("Password");
         passwordTxtField.setTransformationMethod(PasswordTransformationMethod.getInstance());
         phoneNumTxtField.setHint("Phone number");
         phoneNumTxtField.setInputType(InputType.TYPE_CLASS_PHONE);
-        staffBtn.setText("Staff");
         registerBtn.setText("Register");
 
         registerAddViews();
-        setContentView(registerContent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityInit();
+
+        TextView successText = new TextView(this);
+        registerContent.addView(successText);
+
+        staffChkBox = new CheckBox(this);
+        registerContent.addView(staffChkBox);
+        staffChkBox.setText("Staff");
+
+
+        setContentView(registerContent);
         Help.goToActivity(this,registerBtn,new LoginActivity());
 
-    }
-    //checks if field is left blank after trimming whitespaces
-    private boolean isBlankChk(String string){
-        return string.trim().isEmpty();
-    }
 
-    /*Minimum eight characters,
-    maximum of 50 characters,
-    at least one uppercase letter,
-    one lowercase letter
-    and one number:
-     */
-
-    private boolean passwordChk(String password){
-        //compiles regex
-        Pattern passPat = Pattern.compile("^(?=.[a-z])(?=.[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,50}$");
-        //searches for the pattern in the string
-        Matcher match = passPat.matcher(password);
-        //match.find() returns whether the pattern was found in the password.
-        return match.find();
-    }
-    /*
-    has to start with 0,
-    second character 8, 7 or 6.
-    has to be at most 8 other characters
-     */
-
-    private boolean phoneNumCheck(String phoneNum){
-
-        Pattern  phonePat = Pattern.compile("^(\0)[6-8][0-9]{8}$");
-        Matcher match = phonePat.matcher(phoneNum);
-        return match.find();
+        registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                successText.setText("");
+                if(!isUserInDatabase(usernameTxtField.getText().toString(), passwordTxtField.getText().toString())) {
+                    if(!validateAllInput()){
+                        successText.setText("Make sure all the details are correct.");
+                    }
+                    else{
+                        register();
+                        successText.setText("You have been registered");
+                    }
+                }
+                else{
+                    successText.setText("You are already registered.");
+                }
+            }
+        });
     }
 
+    private void register(){
+        User.registerUser(this, nameTxtField.getText().toString(), surnameTxtField.getText().toString(), usernameTxtField.getText().toString(), passwordTxtField.getText().toString(), phoneNumTxtField.getText().toString(), staffChkBox.isChecked());
+    }
+
+    public boolean isUserInDatabase(String username, String password){
+       User.userInit(this, username, password);
+       return User.getUserExists();
+    }
+
+    public boolean validateAllInput(){
+
+        if(Validation.isBlankChk(nameTxtField.getText().toString()) && Validation.isBlankChk(surnameTxtField.getText().toString())&&Validation.isBlankChk(usernameTxtField.getText().toString())&&Validation.isBlankChk(passwordTxtField.getText().toString())&&Validation.isBlankChk(phoneNumTxtField.getText().toString())){
+            return false;
+        }
+        if(!Validation.phoneNumCheck(phoneNumTxtField.getText().toString())){
+            return false;
+        }
+        if(!Validation.passwordChk(passwordTxtField.getText().toString())){
+            return false;
+        }
+
+
+
+
+        return true;
+    }
 }

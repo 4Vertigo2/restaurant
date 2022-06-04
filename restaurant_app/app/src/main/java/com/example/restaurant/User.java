@@ -9,15 +9,25 @@ import java.util.ArrayList;
 public class User {
     private static PHPRequest php = new PHPRequest();
 
-    private static boolean userExists = true;
+    private static boolean userExists;
+
+    //CUSTOMER/STAFF_ID
     private static int userID;
+    //CUSTOMER/STAFF_FIRST_NAME & ..._SURNAME
     private static String userFirstName;
     private static String userSurname;
+
+    //CUSTOMER/STAFF_PHONE_NUMBER
     private static String userPhoneNumber;
+
+    //LOGIN_ID for CUSTOMER or STAFF
     private static int userLoginID;
+    //LOGIN_USERNAME & LOGIN_PASSWORD for CUSTOMER or STAFF
     private static String userLoginUsername;
     private static String userLoginPassword;
+    //is user a CUSTOMER OR STAFF
     private static boolean userLoginStaff;
+    //if user is a STAFF what RESTAURANT do they work for.
     private static int staffRestaurantID;
 
     private static JSONArray arr;
@@ -31,22 +41,21 @@ public class User {
         cv.put("username",username);
         cv.put("password",password);
 
-        php.doRequest(act, "php_login", cv, new RequestHandler() {
-            @Override
-            public void processResponse(String response) {
-                try {
-                    arr = new JSONArray(response);
+        php.doRequest(act, "login", cv, response -> {
+            try {
+                arr = new JSONArray(response);
 
-                    /*when json response fails, it returns an empty array. It will either find
-                    something or it won't as login records are unique*/
-                    if (arr.length() > 0) {
-                        processResponse(response);
-                    } else {
-                        userExists = false;
-                    }
-                } catch (JSONException e) {
-                    System.out.println("User Class : Json failed");
+                /*when json response fails, it returns an empty array. It will either find
+                something or it won't as login records are unique*/
+                if (arr.length() > 0) {
+                    userExists = true;
+                    processUserResponse();
                 }
+                else{
+                    userExists = false;
+                }
+            } catch (JSONException e) {
+                System.out.println("User Class : Json failed");
             }
         }
         );
@@ -58,24 +67,35 @@ public class User {
     when json is sent from the server, it is sent as a string map which can be parsed into an
     JSONArray or JSONObject, which can then be used to extract the data with the Keys.
      */
-    private static void processUserResponse(String response){
+    private static void processUserResponse(){
         try{
             /*Json response comes in an array as we're extracting all the data from 2 tables
               first array in the response is from the LOGIN_TBL
               second array is all the user data, either from Staff or Customer tbl's*/
-            JSONObject loginData = (JSONObject) arr.get(1);
-            JSONObject userData = (JSONObject) arr.get(2);
+            String userLoginStaffString;
+            JSONObject loginData = (JSONObject) arr.get(0);
+            JSONObject userData = (JSONObject) arr.get(1);
 
             //both Customers and Staff have the same login data
             userLoginID = loginData.getInt("LOGIN_ID");
             userLoginUsername = loginData.getString("LOGIN_USERNAME");
             userLoginPassword = loginData.getString("LOGIN_PASSWORD");
-            userLoginStaff = loginData.getBoolean("LOGIN_STAFF");
+            userLoginStaffString = loginData.getString("LOGIN_STAFF");
+
+            //.getBool was not working correctly, assigning it manually.
+            if(userLoginStaffString.equals("1")){
+                userLoginStaff = true;
+            }
+            else{
+                userLoginStaff = false;
+            }
+
 
             /*STAFF and CUSTOMER tbl's have different field names,
-            hence why we needed to process them seperately.
+            hence why we needed to process them separately.
             STAFF_TBL also has a few extra columns.
              */
+
             if(userLoginStaff){
                 userID = userData.getInt("STAFF_ID");
                 userFirstName = userData.getString("STAFF_FIRST_NAME");
@@ -102,28 +122,48 @@ public class User {
     however, their details would have to be set first using userSetDetails() which will first
     update all the variables.
      */
-   public static void userInsertData(Activity act){
+   public static ContentValues userInsertData(Activity act){
         ContentValues cv = new ContentValues();
         cv.put("user_first_name",getUserFirstName());
         cv.put("user_surname", getUserSurname());
         cv.put("user_login_username", getUserLoginUsername());
         cv.put("user_login_password",getUserLoginPassword());
         cv.put("user_phone_number",getUserPhoneNumber());
+        //will remove convertBoolToInt later
+        int convertBoolToInt = getUserLoginStaff()? 1:0;
+        cv.put("user_login_staff",convertBoolToInt);
 
-        //inserts to STAFF_TBL
+        //for now I'm just going to make the restaurant staff be assigned a random restaurant.
         if(getUserLoginStaff()){
-        cv.put("user_login_staff",getUserLoginStaff());
-        cv.put("user_restaurant_id",getStaffRestaurantID());
-        php.doRequest(act,"php_staff_insert",cv,null);
-        return;
+            //cv.put("user_restaurant_id",getStaffRestaurantID());
+            cv.put("user_restaurant_id",1);
         }
-        //inserts into CUSTOMER_TBL
-        php.doRequest(act,"php_customer_insert",cv,null);
+       return cv;
+   }
+
+   public static void registerUser(Activity act,String name, String surname, String username, String password, String phoneNumber, Boolean isStaff){
+        setUserFirstName(name);
+        setUserSurname(surname);
+        setUserLoginUsername(username);
+        setUserLoginPassword(password);
+        setUserPhoneNumber(phoneNumber);
+        setUserLoginStaff(isStaff);
+
+        ContentValues cv = userInsertData(act);
+
+       //inserts to STAFF_TBL
+       if(getUserLoginStaff()){
+          php.doRequest(act,"staff_insert",cv,null);
+          return;
+       }
+
+       //inserts into CUSTOMER_TBL
+       php.doRequest(act,"customer_insert",cv,null);
    }
 
 
 
-/*following is standard get and set methods. This is what you would use to request data
+    /*following is standard get and set methods. This is what you would use to request data
  around the program*/
     public static int getUserID(){
         return userID;
