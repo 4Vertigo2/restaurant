@@ -55,6 +55,7 @@ public class CustomerOrderActivity extends Activity {
         orderHistoryBtn = new Button(this);
 
         //sets views
+        viewOrderContent.setOrientation(LinearLayout.VERTICAL);
         orderHistoryBtn.setText("History");
 
         OrderAddViews();

@@ -16,7 +16,7 @@ public class CustomerRequest extends LinearLayout {
     Help helper = new Help();
     public CustomerRequest(Context c){
         super(c);
-        setOrientation(LinearLayout.HORIZONTAL);
+        setOrientation(LinearLayout.VERTICAL);
         id = new TextView(c);
         status = new TextView(c);
         restaurant = new TextView(c);
@@ -25,8 +25,8 @@ public class CustomerRequest extends LinearLayout {
         ToggleButton tglBtnThumbsDown;
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        lp.weight = 0;
-        addView(id,lp);
+//        lp.weight = 0;
+        addView(id);
 
         LinearLayout right = new LinearLayout(c);
         right.setOrientation(LinearLayout.VERTICAL);
