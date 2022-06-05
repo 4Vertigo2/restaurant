@@ -69,14 +69,12 @@ public class CustomerOrderActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        User user = new User();
-//        activityInit(user.getUserID());
         activityInit();
         Help.goToActivity(this, orderHistoryBtn, new HistoryActivity());
 
 
         ContentValues cv = new ContentValues();
-        cv.put("customer_id", user.getUserID());
+        cv.put("customer_id", User.getUserID());
         cv.put("status", 0);
 
         php.doRequest(CustomerOrderActivity.this, "customer_order", cv, response ->  {
