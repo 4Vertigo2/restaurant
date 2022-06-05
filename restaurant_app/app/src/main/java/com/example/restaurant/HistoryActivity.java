@@ -64,12 +64,11 @@ public class HistoryActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        User user = new User();
         activityInit();
         Help.goToActivity(this, orderViewBtn, new CustomerOrderActivity());
 
         ContentValues cv = new ContentValues();
-        cv.put("customer_id", user.getUserID());
+        cv.put("customer_id", User.getUserID());
         cv.put("status", 2);
 
         php.doRequest(HistoryActivity.this, "customer_order", cv, response ->  {
