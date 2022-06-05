@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
            return;
         }
 
-        intent = new  Intent(this, SettingsActivity.class);
+        intent = new  Intent(this, CustomerOrderActivity.class);
         startActivity(intent);
 
     }
