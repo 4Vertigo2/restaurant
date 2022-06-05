@@ -4,13 +4,22 @@ import androidx.appcompat.app.ActionBar;
 import androidx.cardview.widget.CardView;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import okhttp3.OkHttpClient;
 
 public class HistoryActivity extends Activity {
     //class for the history page of customer's orders
@@ -19,29 +28,26 @@ public class HistoryActivity extends Activity {
     private TextView orderHistoryTxf;/*, restaurantNameTxf, orderDateTxf;*/
     private CardView orderCard;
     private Button orderViewBtn;
+    private ScrollView sv;
+
+    //Php requests
+    OkHttpClient client = new OkHttpClient();
+    private static PHPRequest php = new PHPRequest();
 
     private void OrderAddViews(){
         //adds views to linearlayout
-        orderCard.addView(orderHistoryTxf);
+//        orderCard.addView(orderHistoryTxf);
 //        orderHistoryContent.addView(orderHistoryTxf);
 //        orderHistoryContent.addView(restaurantNameTxf);
 //        orderHistoryContent.addView(orderDateTxf);
-        orderHistoryContent.addView(orderCard);
+//        orderHistoryContent.addView(orderCard);
         orderHistoryContent.addView(orderViewBtn);
     }
 
     public void activityInit(){
-        // CustomerRequest window feature action bar
-        requestWindowFeature(Window.FEATURE_ACTION_BAR);
-        // Set the CardView layoutParams
-        ActionBar.LayoutParams params = new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT,
-                ActionBar.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER;
 
         //initialises views
         orderHistoryContent = new LinearLayout(this);
-        orderCard = new CardView(this);
-        orderHistoryTxf = new TextView(this);
         //old textviews for setting each field individually
 //        statusTxf = new TextView(this);
 //        restaurantNameTxf = new TextView(this);
@@ -50,17 +56,6 @@ public class HistoryActivity extends Activity {
 
         //sets views
         orderHistoryContent.setOrientation(LinearLayout.VERTICAL);
-        orderCard.setLayoutParams(params);
-        orderCard.setRadius(9);
-        orderCard.setContentPadding(15,15,870,15);
-        orderCard.setCardBackgroundColor(Color.parseColor("#D3D3D3"));
-        orderCard.setMaxCardElevation(15);
-        orderCard.setCardElevation(9);
-        orderHistoryTxf.setHint("#0000\nRestaurant\n2022/01/01");
-//        orderHistoryTxf.setHint("#0000");
-//        restaurantNameTxf.setHint("Restaurant");
-//        orderDateTxf.setHint("2022/01/01");
-//        orderViewBtn.setText("History");
         orderViewBtn.setText("Current Orders");
 
         OrderAddViews();
@@ -69,7 +64,35 @@ public class HistoryActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        User user = new User();
         activityInit();
         Help.goToActivity(this, orderViewBtn, new CustomerOrderActivity());
+
+        ContentValues cv = new ContentValues();
+        cv.put("customer_id", user.getUserID());
+        cv.put("status", 2);
+
+        php.doRequest(HistoryActivity.this, "customer_order", cv, response ->  {
+            try {
+                Help help = new Help();
+                JSONArray jArr = new JSONArray(response);
+                for (int i = 0; i < jArr.length(); i++) {
+                    JSONObject jObj = jArr.getJSONObject(i);
+                    CustomerRequest cr = new CustomerRequest(this, HistoryActivity.this);
+                    cr.populate(jObj);
+                    orderHistoryContent.addView(cr);
+
+                }
+            }
+            catch (JSONException e) {
+                System.out.println("Order Class : JSON failed");
+            }
+        });
+        sv = new ScrollView(this);
+        if (orderHistoryContent.getParent() != null){
+            ((ViewGroup)orderHistoryContent.getParent()).removeView(orderHistoryContent);
+        }
+        sv.addView(orderHistoryContent);
+        setContentView(sv);
     }
 }

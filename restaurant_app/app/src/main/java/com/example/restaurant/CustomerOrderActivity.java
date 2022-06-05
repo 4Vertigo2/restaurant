@@ -9,9 +9,11 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -28,6 +30,7 @@ public class CustomerOrderActivity extends Activity {
     private TextView orderCurrTxf;/*, statusTxf, restaurantNameTxf, orderTimeTxf*/
     private CardView orderCard;
     private Button orderHistoryBtn;
+    private ScrollView sv;
     //Php requests
     OkHttpClient client = new OkHttpClient();
     private static PHPRequest php = new PHPRequest();
@@ -73,7 +76,7 @@ public class CustomerOrderActivity extends Activity {
 
 
         ContentValues cv = new ContentValues();
-        cv.put("customer_id", 1);
+        cv.put("customer_id", user.getUserID());
         cv.put("status", 0);
 
         php.doRequest(CustomerOrderActivity.this, "customer_order", cv, response ->  {
@@ -82,15 +85,21 @@ public class CustomerOrderActivity extends Activity {
                     JSONArray jArr = new JSONArray(response);
                     for (int i = 0; i < jArr.length(); i++) {
                         JSONObject jObj = jArr.getJSONObject(i);
-                        CustomerRequest cr = new CustomerRequest(this);
+                        CustomerRequest cr = new CustomerRequest(this, CustomerOrderActivity.this);
                         cr.populate(jObj);
                         viewOrderContent.addView(cr);
-                        setContentView(viewOrderContent);
+
                     }
                 }
                 catch (JSONException e) {
                     System.out.println("Order Class : JSON failed");
                 }
         });
+        sv = new ScrollView(this);
+        if (viewOrderContent.getParent() != null){
+            ((ViewGroup)viewOrderContent.getParent()).removeView(viewOrderContent);
+        }
+        sv.addView(viewOrderContent);
+        setContentView(sv);
     }
 }
