@@ -45,6 +45,8 @@ public class CustomerRequest extends LinearLayout {
             public void onClick(View v) {
                 tglBtnThumbsDown.setChecked(false);
                 tglBtnThumbsUp.setChecked(true);
+                tglBtnThumbsUp.setText("↑");
+                tglBtnThumbsDown.setText("↓");
                 cv.put("rating", 1);
                 cv.put("id", order_id);
                 php.doRequest(act, "customer_rating",cv ,null);
@@ -56,6 +58,8 @@ public class CustomerRequest extends LinearLayout {
             public void onClick(View v) {
                 tglBtnThumbsUp.setChecked(false);
                 tglBtnThumbsDown.setChecked(true);
+                tglBtnThumbsUp.setText("↑");
+                tglBtnThumbsDown.setText("↓");
                 cv.put("rating", 0);
                 cv.put("id", order_id);
                 php.doRequest(act, "customer_rating",cv ,null);
