@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         ImageView imageView = new ImageView(this);
         ImageView gifView = new ImageView(this);
         LinearLayout l = new LinearLayout(this);
