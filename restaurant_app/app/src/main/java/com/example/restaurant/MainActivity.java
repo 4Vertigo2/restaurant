@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivity(mainIntent);
                 MainActivity.this.finish();
             }
-        }, 5000);
+        }, 3000);
 
         //switches activity when app launches to Activity
         //used to test an Activity if you cannot run the Activity independently

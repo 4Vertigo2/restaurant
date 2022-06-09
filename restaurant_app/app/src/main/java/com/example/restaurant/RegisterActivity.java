@@ -54,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Takes");
         activityInit();
 
         TextView successText = new TextView(this);

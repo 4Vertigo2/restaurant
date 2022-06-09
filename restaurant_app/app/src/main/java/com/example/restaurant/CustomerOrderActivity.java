@@ -29,7 +29,7 @@ public class CustomerOrderActivity extends Activity {
     private LinearLayout viewOrderContent;
     private TextView orderCurrTxf;/*, statusTxf, restaurantNameTxf, orderTimeTxf*/
     private CardView orderCard;
-    private Button orderHistoryBtn;
+    private Button orderHistoryBtn, settingsBtn;
     private ScrollView sv;
     //Php requests
     OkHttpClient client = new OkHttpClient();
@@ -41,6 +41,7 @@ public class CustomerOrderActivity extends Activity {
 //        orderCard.addView(statusTxf);
 //        orderCard.addView(restaurantNameTxf);
 //        orderCard.addView(orderTimeTxf);
+        viewOrderContent.addView(settingsBtn);
         viewOrderContent.addView(orderHistoryBtn);
 //        viewOrderContent.addView(orderCard);
     }
@@ -56,10 +57,12 @@ public class CustomerOrderActivity extends Activity {
 //        restaurantNameTxf = new TextView(this);
 //        orderTimeTxf = new TextView(this);
         orderHistoryBtn = new Button(this);
+        settingsBtn = new Button(this);
 
         //sets views
         viewOrderContent.setOrientation(LinearLayout.VERTICAL);
         orderHistoryBtn.setText("History");
+        settingsBtn.setText("Settings");
 
         OrderAddViews();
         setContentView(viewOrderContent);
@@ -71,7 +74,7 @@ public class CustomerOrderActivity extends Activity {
         super.onCreate(savedInstanceState);
         activityInit();
         Help.goToActivity(this, orderHistoryBtn, new HistoryActivity());
-
+        Help.goToActivity(this, settingsBtn, new SettingsActivity());
 
         ContentValues cv = new ContentValues();
         cv.put("customer_id", User.getUserID());

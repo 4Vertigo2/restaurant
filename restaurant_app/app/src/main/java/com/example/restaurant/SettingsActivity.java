@@ -14,7 +14,7 @@ public class SettingsActivity extends RegisterActivity{
         activityInit();
         TextView successText = new TextView(this);
         registerContent.addView(successText);
-
+        setTitle("Takes");
         setContentView(registerContent);
         nameTxtField.setText(User.getUserFirstName());
         surnameTxtField.setText(User.getUserSurname());

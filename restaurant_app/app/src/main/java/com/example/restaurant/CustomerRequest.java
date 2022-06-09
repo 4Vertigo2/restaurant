@@ -70,6 +70,7 @@ public class CustomerRequest extends LinearLayout {
 
 
         LinearLayout right = new LinearLayout(c);
+        right.setPadding(20,0,0,0);
         right.setOrientation(LinearLayout.VERTICAL);
         time.setPadding(0,0,0,10);
         right.addView(status);

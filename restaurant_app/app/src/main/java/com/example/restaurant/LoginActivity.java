@@ -2,10 +2,12 @@ package com.example.restaurant;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Rating;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.method.PasswordTransformationMethod;
@@ -29,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private void loginInit(){
         //sets up views
         loginContent.setOrientation(LinearLayout.VERTICAL);
-        appNameLbl.setText("[Restaurant App Name]");
+        setTitle("Takes");
         usernameTxtField.setHint("Username");
         passwordTxtField.setHint("Password");
         passwordTxtField.setTransformationMethod(PasswordTransformationMethod.getInstance());
@@ -94,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(loginContent);
 
         Help.goToActivity(this,registerBtn, new RegisterActivity());
-
+        disableAutoFill();
         //when the login button is pressed, take the inputs sends them to the login function
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +106,9 @@ public class LoginActivity extends AppCompatActivity {
         });
         //loginUser("FridgeMan","Fr1dg3Man69");
     }
-
+    @TargetApi(Build.VERSION_CODES.O)
+    private void disableAutoFill() {
+        getWindow().getDecorView().setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
+    }
 
 }
