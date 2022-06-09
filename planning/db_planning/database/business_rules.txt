@@ -14,7 +14,7 @@ STAFF_TBL:
 
 2. STAFF_FIRST_NAME and STAFF_SURNAME, cannot be null and each must be under 50 characters long
 
-3. STAFF_PHONE_NUMBER must be 9 digits in length, must begin with a 0, cannot be null, and must be unique.
+3. STAFF_PHONE_NUMBER must be 10 digits in length, must begin with a 0, cannot be null, and must be unique.
 
 RESTAURANT_TBL:
 
@@ -34,7 +34,7 @@ ORDER_TBL:
 
 2. ORDER_STATUS can be either pending, ready or collected. This will be represented by a -1, 0 and 1 respectively. Cannot be null.
 
-3. ORDER_RATING, an order can be rated with a thumbs down, no rating or thumbs up. This will be represented by a -1, 0 and 1 respectively. Cannot be null.
+3. ORDER_RATING, an order can be rated with a thumbs down, no rating or thumbs up. This will be represented by a 0, 0.5, 1 respectively. Trigger will insert default value 0.5.
 
 
 RELATIONSHIPS:

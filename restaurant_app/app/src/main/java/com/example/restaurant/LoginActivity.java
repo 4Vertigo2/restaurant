@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Rating;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.SpannableString;
 import android.text.method.PasswordTransformationMethod;
 import android.text.style.UnderlineSpan;
@@ -54,23 +55,26 @@ public class LoginActivity extends AppCompatActivity {
     //checks to see if a user exists, logs them in if they do.
     private void loginUser(String username, String password){
         Intent intent;
-        User.userInit(this,username,password);
+        User.userInit(this, username,password);
         userNotFoundLbl.setText("");
 
         //removes all previous views so as to make everything blank again
         if(!User.getUserExists()){
            userNotFoundLbl.setText("Username or Password is incorrect, please try again.");
+           User.userInit(this, username,password);
            return;
         }
 
         if(User.getUserLoginStaff()){
+           User.userInit(this,username,password);
            intent = new Intent(this, SettingsActivity.class);
            startActivity(intent);
-           return;
         }
-
-        intent = new  Intent(this, CustomerOrderActivity.class);
-        startActivity(intent);
+        else{
+            User.userInit(this,username,password);
+            intent = new  Intent(this, CustomerOrderActivity.class);
+            startActivity(intent);
+        }
 
     }
 
@@ -87,11 +91,12 @@ public class LoginActivity extends AppCompatActivity {
         userNotFoundLbl = new TextView(this);
         //SpannableString span = new SpannableString("Register");
 
-
+        loginBtn.setText(User.getUserID());
         //adds default values to views and adds them to the Activity
         loginInit();
         loginAddViews();
         setContentView(loginContent);
+
 
         Help.goToActivity(this,registerBtn, new RegisterActivity());
 
@@ -99,7 +104,10 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginUser(usernameTxtField.getText().toString(),passwordTxtField.getText().toString());
+                String username = usernameTxtField.getText().toString();
+                String password = passwordTxtField.getText().toString();
+                loginUser(username,password);
+
             }
         });
         //loginUser("FridgeMan","Fr1dg3Man69");

@@ -10,6 +10,7 @@ public class SettingsActivity extends RegisterActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        double passVal;
 
         activityInit();
         TextView successText = new TextView(this);

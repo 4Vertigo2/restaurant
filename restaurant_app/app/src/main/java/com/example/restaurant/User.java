@@ -41,10 +41,14 @@ public class User {
         cv.put("username",username);
         cv.put("password",password);
 
-        php.doRequest(act, "login", cv, response -> {
-            try {
-                arr = new JSONArray(response);
+            php.doRequest(act, "login", cv, new RequestHandler() {
+            @Override
+            public void processResponse(String response) {
+                try{
+                    arr = new JSONArray(response);
+                }catch (JSONException e){
 
+                }
                 /*when json response fails, it returns an empty array. It will either find
                 something or it won't as login records are unique*/
                 if (arr.length() > 0) {
@@ -54,12 +58,12 @@ public class User {
                 else{
                     userExists = false;
                 }
-            } catch (JSONException e) {
-                System.out.println("User Class : Json failed");
             }
+        });
+
+
         }
-        );
-    }
+
 
     /*the following code is used to process the Json response of all the data about the user,
 
