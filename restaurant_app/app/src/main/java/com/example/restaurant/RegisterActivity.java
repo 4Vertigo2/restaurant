@@ -95,6 +95,8 @@ staffRestaurantTxt.setInputType(InputType.TYPE_CLASS_NUMBER);
                 if(!isUserInDatabase(usernameTxtField.getText().toString(), passwordTxtField.getText().toString())) {
                     if(!validateAllInput()){
                         successText.setText("Please make sure all the details are correct.");
+                        Toast.makeText(RegisterActivity.this, "Password must contain 8 characters, capital, lowercase and digit characters", Toast.LENGTH_SHORT).show();
+
                     }
                     else{
                         register();
