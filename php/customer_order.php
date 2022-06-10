@@ -9,11 +9,11 @@ are either pending or ready, or completed*/
 $customer_id = $_REQUEST["customer_id"];
 $status = $_REQUEST["status"];
 
-if($r = mysqli_query($link, " Select ORDER_ID, ORDER_STATUS, RESTAURANT_NAME, ORDER_TIME 
+if($r = mysqli_query($link, " Select ORDER_ID, ORDER_STATUS, RESTAURANT_NAME, ORDER_TIME, ORDER_RATING 
                             from ((ORDER_TBL 
                             inner join STAFF_TBL on ORDER_TBL.STAFF_ID = STAFF_TBL.STAFF_ID) 
                             inner join RESTAURANT_TBL on STAFF_TBL.RESTAURANT_ID = RESTAURANT_TBL.RESTAURANT_ID) 
-                            where CUSTOMER_ID = ".$customer_id." and ORDER_STATUS = ".$status."")){
+                            where CUSTOMER_ID = ".$customer_id." and ORDER_STATUS BETWEEN (".$status." - 1) AND ".$status."")){
 	while($row=$r->fetch_assoc()){
 		$output[]=$row;
 	}

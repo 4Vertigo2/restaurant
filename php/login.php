@@ -1,4 +1,4 @@
-<?php
+<?php   
 $username = "s2439564";
 $password = "s2439564";
 $database = "d2439564";
@@ -10,25 +10,27 @@ $password = $_REQUEST["password"];
 
 if($result = mysqli_query($link, "Select * from LOGIN_TBL where LOGIN_USERNAME='".$username."'and LOGIN_PASSWORD='".$password."'")){
 	while($row=$result->fetch_assoc()){
-		$output[]=$row;
+		$output[]=($row);
 	}
+	if($output[0]["LOGIN_STAFF"] == TRUE){
+		if($result = mysqli_query($link, "SELECT * FROM STAFF_TBL WHERE LOGIN_ID='".$output[0]["LOGIN_ID"]."'")){
+			while($row=$result->fetch_assoc()){
+				$output[]=$row;	
+			}
 
-	if(end($output) == TRUE){
-		$result = mysqli_query($link, "SELECT * FROM STAFF_TBL WHERE LOGIN_ID= '".$output[0]."'");
-
-		while($row=$result->fetch_assoc()){
-		$output[]=$row;	
 		}
+
 	}
 	else{
-			$result = mysqli_query($link, "SELECT * FROM CUSTOMER_TBL WHERE LOGIN_ID= '".$output[0]."'");
-		while($row=$result->fetch_assoc()){
-		$output[]=$row;	
+		if($result = mysqli_query($link, "SELECT * FROM CUSTOMER_TBL WHERE LOGIN_ID= '".$output[0]["LOGIN_ID"]."'")){
+			while($row=$result->fetch_assoc()){
+				$output[]=$row;	
+			}
+
 		}
 	}
 }
 else{
-	$output[] = FALSE;
 }
 mysqli_close($link);
 echo json_encode($output);
