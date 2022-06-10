@@ -92,7 +92,7 @@ BEGIN
     ELSEIF resID THEN
 	  SET restaurant = 'Nandos';
     END IF;
-	RETURN (resID);
+	RETURN (restaurant);
 END//
 DELIMITER ;
 
