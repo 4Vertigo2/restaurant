@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private void loginInit(){
         //sets up views
         loginContent.setOrientation(LinearLayout.VERTICAL);
-        appNameLbl.setText("[Restaurant App Name]");
+        setTitle("Takes");
         usernameTxtField.setHint("Username");
         passwordTxtField.setHint("Password");
         passwordTxtField.setTransformationMethod(PasswordTransformationMethod.getInstance());
@@ -64,7 +64,8 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if(User.getUserLoginStaff()){
-           intent = new Intent(this, SettingsActivity.class);
+           intent = new Intent(this, StaffActivity.class);
+           intent.putExtra("staffID",User.getUserID());
            startActivity(intent);
            return;
         }
