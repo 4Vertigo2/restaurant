@@ -10,7 +10,6 @@ $user_phone_number = $_REQUEST["user_phone_number"];
 $user_login_username = $_REQUEST["user_login_username"];
 $user_login_password = $_REQUEST["user_login_password"];
 $user_login_staff = $_REQUEST["user_login_staff"];
-$user_restaurant_id = $_REQUEST["user_restaurant_id"];
 
 if($link -> connect_error){
     die("Connection failed: ".$conn->connect_error);
@@ -19,16 +18,16 @@ if($link -> connect_error){
 $sql_insert_login = "Insert into LOGIN_TBL(LOGIN_USERNAME,LOGIN_PASSWORD,LOGIN_STAFF) values('".$user_login_username."','".$user_login_password."','".$user_login_staff."')";
 
 if($link->query($sql_insert_login)=== TRUE){
-    echo "login inserted successfully";
+    echo "L1";
 }else{
-    echo "error login insert";
+    echo "L0";
 }
 
-$sql_insert_staff = "Insert into STAFF_TBL(STAFF_FIRST_NAME, STAFF_SURNAME, STAFF_PHONE_NUMBER,RESTAURANT_ID,LOGIN_ID) values('".$user_first_name."','".$user_surname."','".$user_phone_number."','".$user_restaurant_id."',(SELECT MAX(LOGIN_ID) FROM LOGIN_TBL))";
+$sql_insert_customer = "Insert into CUSTOMER_TBL(CUSTOMER_FIRST_NAME, CUSTOMER_SURNAME, CUSTOMER_PHONE_NUMBER,LOGIN_ID) values('".$user_first_name."','".$user_surname."','".$user_phone_number."',(SELECT MAX(LOGIN_ID) FROM LOGIN_TBL))";
 
-if($link->query($sql_insert_staff) === TRUE){
-    echo "Staff insert successful";
+if($link->query($sql_insert_customer) === TRUE){
+    echo "S1";
 }
 else{
-    echo "staff insert failed";
+    echo "S0";
 }
