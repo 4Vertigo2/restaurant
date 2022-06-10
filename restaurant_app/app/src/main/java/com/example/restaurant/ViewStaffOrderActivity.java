@@ -39,8 +39,8 @@ public class ViewStaffOrderActivity extends Activity {
             JSONObject jo = ja.getJSONObject(i);
             ViewOrderLayout cl = new ViewOrderLayout(this);
             cl.populate(jo);
-            if(i%2==0){
-                cl.setBackgroundColor(Color.parseColor("#EEEEFF"));
+            if((i)%2==0){
+                cl.setBackgroundColor(Color.parseColor("#2804b8"));
             }
             top1.addView(cl);
         }
@@ -59,10 +59,10 @@ public class ViewStaffOrderActivity extends Activity {
             top1.addView(header1);
 
             Intent current = getIntent();
-            String staffID = current.getStringExtra("staffID");
+//            String staffID = current.getStringExtra("staffID");
             PHPRequest php = new PHPRequest();
             ContentValues cv = new ContentValues();
-            cv.put("STAFF_ID", staffID); //RETURNS ALL ORDERS MADE BY STAFF
+            cv.put("STAFF_ID", Integer.toString(User.getUserID())); //RETURNS ALL ORDERS MADE BY STAFF
             setContentView(top1);
             php.doRequest(this, "orders", cv, new RequestHandler() {
                 @Override

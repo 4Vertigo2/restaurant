@@ -12,11 +12,13 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.method.PasswordTransformationMethod;
 import android.text.style.UnderlineSpan;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -84,7 +86,9 @@ public class LoginActivity extends AppCompatActivity {
         loginContent = new LinearLayout(this);
         appNameLbl = new TextView(this);
         usernameTxtField = new EditText(this);
+        usernameTxtField.setSingleLine();
         passwordTxtField = new EditText(this);
+        passwordTxtField.setSingleLine();
         loginBtn = new Button(this);
         registerBtn = new Button(this);
         userNotFoundLbl = new TextView(this);
@@ -96,16 +100,17 @@ public class LoginActivity extends AppCompatActivity {
         loginAddViews();
         setContentView(loginContent);
 
-        Help.goToActivity(this,registerBtn, new RegisterActivity());
+        Help.goToActivity(this, registerBtn, new RegisterActivity());
         disableAutoFill();
         //when the login button is pressed, take the inputs sends them to the login function
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginUser(usernameTxtField.getText().toString(),passwordTxtField.getText().toString());
+                loginUser(usernameTxtField.getText().toString(), passwordTxtField.getText().toString());
             }
         });
         //loginUser("FridgeMan","Fr1dg3Man69");
+        Help.enterKey(passwordTxtField);
     }
     @TargetApi(Build.VERSION_CODES.O)
     private void disableAutoFill() {

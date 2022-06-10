@@ -40,9 +40,14 @@ public void setAvgRating(String response){ // SETS TEXTVIEW WITH CALCULATED AVER
         JSONArray ja = new JSONArray(response);
         for(int i =0; i<ja.length();i++){
             JSONObject jo = ja.getJSONObject(i);
-            if (jo.getString("STAFF_ID").equals("1")){
+            if (jo.getString("STAFF_ID").equals(Integer.toString(User.getUserID()))){
                 average= jo.getString("AVG_RATING");
-                averageT.setText("Staff Average Rating: "+ Double.toString(Double.parseDouble(average) *100) + "%" );
+                if (average != null){
+                    averageT.setText("Staff Average Rating: "+ Double.toString(Double.parseDouble(average) *100) + "%" );
+
+                }else{
+                    averageT.setText("Staff Average Rating: No rating");
+                }
 
             }
         }
@@ -61,7 +66,7 @@ public void setAvgRating(String response){ // SETS TEXTVIEW WITH CALCULATED AVER
 public void getAvgRating(){ // GETS AVERAGE RATING FROM SERVER
         PHPRequest PHP = new PHPRequest();
         ContentValues cv = new ContentValues();
-        cv.put("STAFF_ID",staffID);
+        cv.put("STAFF_ID",Integer.toString(User.getUserID()));
         PHP.doRequest(this, "getRating", cv, new RequestHandler() {
             @Override
             public void processResponse(String response) {
@@ -139,9 +144,6 @@ public void getAvgRating(){ // GETS AVERAGE RATING FROM SERVER
             if(Integer.parseInt(jo.getString("ORDER_STATUS")) <1){
                 StaffCurrentLayout cl = new StaffCurrentLayout(this, StaffActivity.this,json);
                 cl.populate(jo);
-                if(i%2==0){
-                    cl.setBackgroundColor(Color.parseColor("#EEEEFF"));
-                }
 
                 orderList.addView(cl);
             }
@@ -161,7 +163,7 @@ public void getAvgRating(){ // GETS AVERAGE RATING FROM SERVER
         orderList.setOrientation(LinearLayout.VERTICAL);
        PHPRequest php = new PHPRequest();
         ContentValues cv = new ContentValues();
-        cv.put("STAFF_ID", staffID);
+        cv.put("STAFF_ID", Integer.toString(User.getUserID()));
         php.doRequest(this, "orders", cv, new RequestHandler() {
             @Override
             public void processResponse(String response) {
@@ -178,7 +180,7 @@ public void getAvgRating(){ // GETS AVERAGE RATING FROM SERVER
             @Override
             public void onClick(View view) {
                 Intent viewOrderActivity= new Intent(StaffActivity.this, ViewStaffOrderActivity.class);
-               viewOrderActivity.putExtra("staffID",staffID);
+//               viewOrderActivity.putExtra("staffID",User.getUserID());
                 startActivity(viewOrderActivity);
             }
         });
@@ -186,7 +188,7 @@ public void getAvgRating(){ // GETS AVERAGE RATING FROM SERVER
             @Override
             public void onClick(View view) {
                 Intent AddOrderActivity= new Intent(StaffActivity.this, AddOrderActivity.class);
-               AddOrderActivity.putExtra("staffID",staffID);
+//               AddOrderActivity.putExtra("staffID",User.getUserID());
                 startActivity(AddOrderActivity);
             }
         });
