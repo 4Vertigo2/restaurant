@@ -77,23 +77,22 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE FUNCTION RatingLevel(
-	avg_rating DECIMAL(10,2)
+CREATE FUNCTION getRestaurant(
+	resID int(2)
 ) 
 RETURNS VARCHAR(25)
 BEGIN
-    DECLARE ratingLevel VARCHAR(25);
-    IF avg_rating >= 0.75 THEN
-		SET ratingLevel = 'High Positively Rated';
-    ELSEIF (avg_rating >= 0.5 AND 
-			avg_rating < 0.75) THEN
-        SET ratingLevel = 'Positively Rated';
-    ELSEIF (avg_rating >= 0.25 AND avg_rating < 0.5)THEN
-        SET ratingLevel = 'Negatively Rated';
-    ELSEIF avg_rating < 0.25 THEN
-	  SET ratingLevel ='High Negatively Rated';
+    DECLARE restaurant VARCHAR(25);
+    IF resID = 1 THEN
+		SET restaurant = 'KFC';
+    ELSEIF (resID = 2) THEN
+        SET SET restaurant = 'Burger King';
+    ELSEIF (resID = 3)THEN
+        SET restaurant = 'Debonairs';
+    ELSEIF resID THEN
+	  SET restaurant = 'Nandos';
     END IF;
-	RETURN (ratingLevel);
+	RETURN (resID);
 END//
 DELIMITER ;
 
