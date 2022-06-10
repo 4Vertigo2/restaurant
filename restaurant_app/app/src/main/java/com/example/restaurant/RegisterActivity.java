@@ -15,7 +15,7 @@ import java.util.regex.*;
 
 public class RegisterActivity extends AppCompatActivity {
     LinearLayout registerContent;
-    EditText nameTxtField,surnameTxtField,usernameTxtField,passwordTxtField, phoneNumTxtField;
+    EditText nameTxtField,surnameTxtField,usernameTxtField,passwordTxtField, phoneNumTxtField,staffRestaurantTxt;
     private CheckBox staffChkBox;
     Button registerBtn;
 
@@ -42,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         phoneNumTxtField.setSingleLine();
         registerBtn = new Button(this);
 
+        staffRestaurantTxt = new EditText(this);
         //sets up views
         registerContent.setOrientation(LinearLayout.VERTICAL);
         nameTxtField.setHint("Name");
@@ -53,6 +54,8 @@ public class RegisterActivity extends AppCompatActivity {
         phoneNumTxtField.setInputType(InputType.TYPE_CLASS_PHONE);
         registerBtn.setText("Register");
 
+        staffRestaurantTxt.setHint("Enter Restaurant ID");
+staffRestaurantTxt.setInputType(InputType.TYPE_CLASS_NUMBER);
         registerAddViews();
     }
 
@@ -69,10 +72,22 @@ public class RegisterActivity extends AppCompatActivity {
         registerContent.addView(staffChkBox);
         staffChkBox.setText("Staff");
 
-        setContentView(registerContent);
+
         Help.goToActivity(this,registerBtn,new LoginActivity());
 
+        staffChkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(staffChkBox.isChecked()){
+                    registerContent.addView(staffRestaurantTxt);
+                    setContentView(registerContent);
+                }
+                else{
+                    registerContent.removeView(staffRestaurantTxt);
+                }
 
+            }
+        });
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,10 +107,12 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
         Help.enterKey(nameTxtField);
+
+        setContentView(registerContent);
     }
 
     private void register(){
-        User.registerUser(this, nameTxtField.getText().toString(), surnameTxtField.getText().toString(), usernameTxtField.getText().toString(), passwordTxtField.getText().toString(), phoneNumTxtField.getText().toString(), staffChkBox.isChecked());
+        User.registerUser(this, nameTxtField.getText().toString(), surnameTxtField.getText().toString(), usernameTxtField.getText().toString(), passwordTxtField.getText().toString(), phoneNumTxtField.getText().toString(), staffChkBox.isChecked(),staffRestaurantTxt.getText().toString());
     }
 
     public boolean isUserInDatabase(String username, String password){
