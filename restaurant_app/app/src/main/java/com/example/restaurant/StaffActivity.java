@@ -26,7 +26,7 @@ Button viewOrder;
 Button addOrder;
 String staffID;
 private static PHPRequest php = new PHPRequest();
-
+private Button settingsBtn;
 static public String average;
 private ScrollView sv;
 public LinearLayout top, bottom, orderList ,aver, averLevel;
@@ -116,13 +116,19 @@ public void getAvgRating(){ // GETS AVERAGE RATING FROM SERVER
         bottom.setOrientation(LinearLayout.HORIZONTAL);
         addOrder= new Button(this);
         viewOrder= new Button(this);
+        settingsBtn = new Button(this);
+        settingsBtn.setText("Settings");
         addOrder.setText("Add Order");
-        addOrder.setPadding(100,1,100,1);
+        addOrder.setPadding(70,1,70,1);
         viewOrder.setText("View Order");
-       viewOrder.setPadding(100,1,100,1);
-       viewOrder.setX(60);
+        viewOrder.setPadding(70,1,70,1);
+        viewOrder.setX(32);
+//        settingsBtn.setPadding(100,1,100,1);
+        settingsBtn.setX(60);
+        settingsBtn.setPadding(70,1,70,1);
         bottom.addView(addOrder);
         bottom.addView(viewOrder);
+        bottom.addView(settingsBtn);
         top.addView(bottom);
 
 
@@ -160,6 +166,8 @@ public void getAvgRating(){ // GETS AVERAGE RATING FROM SERVER
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityInit();
+        Help.goToActivity(this, settingsBtn, new SettingsActivity());
+
         ContentValues cvName = new ContentValues();
         cvName.put("resID",User.getStaffRestaurantID());
         php.doRequest(this, "getRestaurant", cvName, new RequestHandler() {
