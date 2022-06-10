@@ -86,7 +86,7 @@ BEGIN
     IF resID = 1 THEN
 		SET restaurant = 'KFC';
     ELSEIF (resID = 2) THEN
-        SET SET restaurant = 'Burger King';
+        SET restaurant = 'Burger King';
     ELSEIF (resID = 3)THEN
         SET restaurant = 'Debonairs';
     ELSEIF resID THEN
