@@ -21,10 +21,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class StaffActivity extends Activity {
+public class StaffActivity extends AppCompatActivity {
 Button viewOrder;
 Button addOrder;
 String staffID;
+private static PHPRequest php = new PHPRequest();
 
 static public String average;
 private ScrollView sv;
@@ -159,10 +160,26 @@ public void getAvgRating(){ // GETS AVERAGE RATING FROM SERVER
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityInit();
+        ContentValues cvName = new ContentValues();
+        cvName.put("resID",User.getStaffRestaurantID());
+        php.doRequest(this, "getRestaurant", cvName, new RequestHandler() {
+            @Override
+            public void processResponse(String response) {
+               try {
+                   JSONObject jo = new JSONObject(response);
+                   String name = response.substring(response.indexOf(":") + 2, response.indexOf("}") - 1);
+                   setTitle(name);
+               }
+               catch(JSONException e){
+                   System.out.println("Restaurant name fail");
+               }
+            }
+        });
         orderList= new LinearLayout(this);
         orderList.setOrientation(LinearLayout.VERTICAL);
-       PHPRequest php = new PHPRequest();
+
         ContentValues cv = new ContentValues();
+
         cv.put("STAFF_ID", Integer.toString(User.getUserID()));
         php.doRequest(this, "orders", cv, new RequestHandler() {
             @Override

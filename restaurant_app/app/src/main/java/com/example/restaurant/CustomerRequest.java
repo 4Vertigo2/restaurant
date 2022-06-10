@@ -6,6 +6,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import org.json.JSONException;
@@ -52,7 +53,7 @@ public class CustomerRequest extends LinearLayout {
                     cv.put("rating", 1);
                     cv.put("id", order_id);
                     php.doRequest(act, "customer_rating", cv, null);
-
+                    Toast.makeText(c, "Rated!", Toast.LENGTH_SHORT).show();
                 }
             });
             tglBtnThumbsDown.setOnClickListener(new OnClickListener() {
@@ -65,6 +66,7 @@ public class CustomerRequest extends LinearLayout {
                     cv.put("rating", 0);
                     cv.put("id", order_id);
                     php.doRequest(act, "customer_rating", cv, null);
+                    Toast.makeText(c, "Rated!", Toast.LENGTH_SHORT).show();
                 }
             });
 
