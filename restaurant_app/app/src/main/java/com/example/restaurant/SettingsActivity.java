@@ -35,6 +35,8 @@ public class SettingsActivity extends RegisterActivity{
                     else{
                         Toast.makeText(SettingsActivity.this, "Password must contain 8 characters, capital, lowercase and digit characters", Toast.LENGTH_SHORT).show();
                         successText.setText("Please make sure that all your details are correct ");
+                        Toast.makeText(SettingsActivity.this, "Password must contain 8 characters, capital, lowercase and digit characters", Toast.LENGTH_SHORT).show();
+
                     }
                 }
                 else{
