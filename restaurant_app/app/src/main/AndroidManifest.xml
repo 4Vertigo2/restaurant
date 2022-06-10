@@ -15,7 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Restaurant_app"
         tools:targetApi="31">
-        <!-- Launches MainActivity first -->
+        <activity
+            android:name="com.example.restaurant.ViewStaffOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.restaurant.StaffActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.restaurant.AddOrderActivity"
+            android:exported="false" /> <!-- Launches MainActivity first -->
         <activity
             android:name="com.example.restaurant.MainActivity"
             android:exported="true">

@@ -66,7 +66,8 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if(User.getUserLoginStaff()){
-           intent = new Intent(this, SettingsActivity.class);
+           intent = new Intent(this, StaffActivity.class);
+           intent.putExtra("staffID",User.getUserID());
            startActivity(intent);
            return;
         }
