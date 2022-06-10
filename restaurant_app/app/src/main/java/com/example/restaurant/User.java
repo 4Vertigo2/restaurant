@@ -136,19 +136,24 @@ public class User {
         //for now I'm just going to make the restaurant staff be assigned a random restaurant.
         if(getUserLoginStaff()){
             //cv.put("user_restaurant_id",getStaffRestaurantID());
-            cv.put("user_restaurant_id",1);
+
+            cv.put("user_restaurant_id",getStaffRestaurantID());
         }
        return cv;
    }
 
    //takes in all the details and sends it to the php which inserts it into the database
-   public static void registerUser(Activity act,String name, String surname, String username, String password, String phoneNumber, Boolean isStaff){
+   public static void registerUser(Activity act,String name, String surname, String username, String password, String phoneNumber, Boolean isStaff, String restaurantID){
         setUserFirstName(name);
         setUserSurname(surname);
         setUserLoginUsername(username);
         setUserLoginPassword(password);
         setUserPhoneNumber(phoneNumber);
         setUserLoginStaff(isStaff);
+
+        if(getUserLoginStaff()){
+           setStaffRestaurantID(Integer.parseInt(restaurantID));
+        }
 
         ContentValues cv = userInsertData(act);
 
