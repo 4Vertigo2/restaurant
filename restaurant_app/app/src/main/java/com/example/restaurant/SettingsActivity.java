@@ -40,6 +40,7 @@ public class SettingsActivity extends RegisterActivity{
                 }
             }
         });
+        Help.enterKey(nameTxtField);
     }
 
     private void updateDetails(){

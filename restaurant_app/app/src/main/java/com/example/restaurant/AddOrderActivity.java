@@ -29,7 +29,7 @@ public class AddOrderActivity extends Activity {
 
     private ScrollView sv;
 // ADDORDER ACTIVITY TO ALLOW USER TO ADD AND INSERT NEW ORDER ENTRY IN MYSQL DATABASE USING PHP SERVER
-    public void processCustomers(String json, String staffID) throws JSONException {
+    public void processCustomers(String json) throws JSONException {
         top.removeAllViews();
         TextView header = new TextView(this);
         TextView header2 = new TextView(this);
@@ -50,7 +50,7 @@ public class AddOrderActivity extends Activity {
             CustomerLayout cl = new CustomerLayout(this);
             cl.populate(jo);
             if(i%2==0){
-                cl.setBackgroundColor(Color.parseColor("#EEEEFF"));
+                cl.setBackgroundColor(Color.parseColor("#2804b8"));
             }
             cl.tcustPhone.setX(300);
             cl.setOnClickListener(new View.OnClickListener() {// SENDS A REQUEST TO PHPSERVER TO INSERT NEW ENTRY INTO ORDER_TBL AND SENDS USER BACK TO STAFFACTIVITY
@@ -58,7 +58,7 @@ public class AddOrderActivity extends Activity {
                 public void onClick(View view) {
                     PHPRequest PHP = new PHPRequest();
                     ContentValues cv = new ContentValues();
-                    cv.put("STAFF_ID", staffID);
+                    cv.put("STAFF_ID", Integer.toString(User.getUserID()));
                     try {
                         cv.put("CUSTOMER_ID",jo.getString("CUSTOMER_ID"));
                     } catch (JSONException e) {
@@ -69,7 +69,7 @@ public class AddOrderActivity extends Activity {
                         public void processResponse(String response) {
                                 Toast.makeText(AddOrderActivity.this, "Added Order succesfully", Toast.LENGTH_SHORT).show();
                             Intent StaffActivity= new Intent( AddOrderActivity.this, com.example.restaurant.StaffActivity.class);
-                            StaffActivity.putExtra("staffID",staffID);
+//                            StaffActivity.putExtra("staffID",staffID);
                             startActivity(StaffActivity);
                         }
                     });
@@ -93,7 +93,7 @@ public class AddOrderActivity extends Activity {
         top.removeAllViews();
         top.setOrientation(LinearLayout.VERTICAL);
         Intent current = getIntent();
-        String staffID = current.getStringExtra("staffID");
+//        String staffID = current.getStringExtra("staffID");
         PHPRequest PHP = new PHPRequest();
         ContentValues cv = new ContentValues();
 
@@ -101,7 +101,7 @@ public class AddOrderActivity extends Activity {
             @Override
             public void processResponse(String response) {
                 try{
-                    processCustomers(response,staffID);
+                    processCustomers(response);
 
                 }catch (JSONException e){
                     e.printStackTrace();

@@ -31,10 +31,15 @@ public class RegisterActivity extends AppCompatActivity {
         //initializes views
         registerContent = new LinearLayout(this);
         nameTxtField = new EditText(this);
+        nameTxtField.setSingleLine();
         surnameTxtField = new EditText(this);
+        surnameTxtField.setSingleLine();
         usernameTxtField = new EditText(this);
+        usernameTxtField.setSingleLine();
         passwordTxtField = new EditText(this);
+        passwordTxtField.setSingleLine();
         phoneNumTxtField = new EditText(this);
+        phoneNumTxtField.setSingleLine();
         registerBtn = new Button(this);
 
         //sets up views
@@ -86,6 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+        Help.enterKey(nameTxtField);
     }
 
     private void register(){

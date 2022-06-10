@@ -3,7 +3,10 @@ package com.example.restaurant;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class Help {
 //helper method that takes in the current activity (context) and the new activity
@@ -26,5 +29,26 @@ public class Help {
             return "Collected";
         else
             return "Pending";
+    }
+
+    public static void enterKey(EditText txf){
+        txf.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View view, int keyCode, KeyEvent event){
+                if (event.getAction() == KeyEvent.ACTION_DOWN){
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+                            if(txf == txf){
+                                (txf).requestFocus();
+                            }
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
     }
 }
